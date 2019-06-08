@@ -1,0 +1,24 @@
+project_id: home-assistant-240311
+api_key: AIzaSyCpuRqT2vmyGkzxQSDCQGAzJqzm74J4gPA
+expose_by_default: false
+entity_config:
+  light.living_room_big_lamp:
+    expose: true
+    name: "Living Room Big Lamp"
+    room: "Living Room"
+  switch.living_room_small_lamp:
+    expose: true
+    name: "Living Room Small Lamp"
+    room: "Living Room"
+  light.movie_room_left:
+    expose: true
+    name: "Movie Room Left"
+    room: "Movie Room"    
+  light.movie_room_right:
+    expose: true
+    name: "Movie Room Right"
+    room: "Movie Room"
+  group.lights_living_room:
+    expose: true
+    name: "Living Room Lights"
+    room: "Living Room"

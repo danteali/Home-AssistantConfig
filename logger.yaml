@@ -1,0 +1,46 @@
+##############################################################
+# Logger  - You can filter anything betwen the []'s in the logger.
+##############################################################
+
+# Log Severities: notset, debug, info, warn, warning, error, fatal, critical
+
+default: debug
+logs:
+  homeassistant.components.unifi_direct: warn
+  homeassistant.components.device_tracker: warn
+  homeassistant.components.command_line: warn
+  aiounifi.api: warn
+  homeassistant.components.websocket_api.http.connection: warn
+  haffmpeg.core: warn
+  alexapy.alexawebsocket: warn
+#  homeassistant.components.automation: info
+#  homeassistant.components.input_select: debug
+#  homeassistant.core: warn
+#  homeassistant.components.sensor.pi_hole: warn
+#  homeassistant.components.sensor.rest: warn
+#  homeassistant.components.recorder: warn
+#  homeassistant.components.binary_sensor: warn
+#  homeassistant.components.websocket_api: warn
+#  homeassistant.util.json: warn
+
+#  homeassistant.setup: info
+#  aiohttp.access: critical
+#  aiohttp.server: critical
+#  homeassistant.core: error
+#  homeassistant.components.automation: warn
+#  homeassistant.components.climate.nest: warn
+#  homeassistant.components.discovery: warn
+#  homeassistant.components.feedreader: warn
+#  homeassistant.components.http: warn
+#  homeassistant.components.media_player: info
+#  homeassistant.components.sensor.darksky: warn
+#  homeassistant.components.zwave: warn
+#  homeassistant.helpers.script: info
+#  homeassistant.helpers.entity: critical
+#  homeassistant.exceptions: info
+#  py.warnings: error
+#  requests.packages.urllib3.connectionpool: critical
+#  root: warn
+
+
+#2019-05-19 00:28:33 DEBUG (MainThread) [homeassistant.bootstrap] Setting up {'conversation', 'sensor', 'auth', 'ffmpeg', 'ring', 'input_number', 'logbook', 'nest', 'binary_sensor', 'updater', 'downloader', 'influxdb', 'cloud', 'device_tracker', 'switch', 'zone', 'mqtt', 'tradfri', 'light', 'onboarding', 'config', 'api', 'climate', 'alarm_control_panel', 'scene', 'google_assistant', 'frontend', 'script', 'sun', 'automation', 'http', 'cast', 'map', 'lovelace', 'discovery', 'system_health', 'history', 'unifi', 'webhook', 'input_select', 'tts', 'python_script', 'ifttt', 'websocket_api', 'notify', 'group'}
