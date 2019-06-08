@@ -1,0 +1,20 @@
+##############################################################
+## Automation  ##
+##############################################################
+
+        ##########################################################
+        ## Failed Downloads
+        ##########################################################
+
+- id: download_failed_notify
+  alias: Download Failed Notification
+  initial_state: True
+  hide_entity: true
+  trigger:
+    - platform: event
+      event_type: downloader_download_failed
+  action:
+    - service: persistent_notification.create
+      data_template:
+        message: " download failed"
+        title: "Download Failed"
