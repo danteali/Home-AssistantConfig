@@ -1,0 +1,88 @@
+####################################################################################################
+# Package - Sun
+####################################################################################################
+
+# Create sensors to display the sun states etc.
+
+# Sources:
+# https://community.home-assistant.io/t/display-sun-rising-in-ui/2716/17
+
+
+#===================================================================================================
+# Sensors 
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/sensor/
+#===================================================================================================
+
+sensor:
+  - platform: template
+    sensors:
+      sun_sunset_time:
+        friendly_name: Sun - Next Sunset
+        icon_template: mdi:weather-sunset-down
+        value_template: '{{ as_timestamp(states.sun.sun.attributes.next_setting)  | timestamp_custom("%H:%M") }}'
+
+  - platform: template
+    sensors:
+      sun_sunrise_time:
+        friendly_name: Sun - Next Sunrise
+        icon_template: mdi:weather-sunset-up
+        value_template: '{{ as_timestamp(states.sun.sun.attributes.next_rising)  | timestamp_custom("%H:%M") }}'
+
+  - platform: template
+    sensors:
+      sun_noon_time:
+        friendly_name: Sun - Next Noon
+        icon_template: mdi:weather-sunny
+        value_template: '{{ as_timestamp(states.sun.sun.attributes.next_noon)  | timestamp_custom("%H:%M") }}'
+
+  - platform: template
+    sensors:
+      sun_midnight_time:
+        friendly_name: Sun - Next Midnight
+        icon_template: mdi:weather-night
+        value_template: '{{ as_timestamp(states.sun.sun.attributes.next_midnight)  | timestamp_custom("%H:%M") }}'
+
+  - platform: template
+    sensors:
+      sun_dawn_time:
+        friendly_name: Sun - Next Dawn
+        icon_template: mdi:brightness-3
+        value_template: '{{ as_timestamp(states.sun.sun.attributes.next_dawn)  | timestamp_custom("%H:%M") }}'
+
+  - platform: template
+    sensors:
+      sun_dusk_time:
+        friendly_name: Sun - Next Dusk
+        icon_template: mdi:brightness-4
+        value_template: '{{ as_timestamp(states.sun.sun.attributes.next_dusk)  | timestamp_custom("%H:%M") }}'
+
+
+#===================================================================================================
+# Groups
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/group/
+# Icons: https://materialdesignicons.com/
+#
+# If not using custom Lovelace, groups can be shown in the main dashboard or tabs at the top of the
+# overview screen (set 'view: true').
+# Groups with actions associated (e.g. switches) will have a group-wide switch at the top by default
+# unless we set 'control: hidden'.
+# Groups can be referenced as part of other groups too.
+#===================================================================================================
+
+group:
+  sun_stats:
+    name: Sun Statistics
+    view: false
+    control: hidden
+    icon: mdi:weather-sunny
+    entities:
+      - sun.sun
+      - sensor.sun_dawn_time
+      - sensor.sun_sunrise_time
+      - sensor.sun_noon_time
+      - sensor.sun_sunset_time
+      - sensor.sun_dusk_time
+      - sensor.sun_midnight_time
+

@@ -1,0 +1,67 @@
+####################################################################################################
+# Package - Google Travel Time
+####################################################################################################
+
+# Sources:
+# https://www.home-assistant.io/components/google_travel_time/
+
+# The component setup is in configuration.yaml
+
+#===================================================================================================
+# Sensors 
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/sensor/
+#===================================================================================================
+
+sensor:
+  - platform: google_travel_time
+    name: Work to Home
+    #api_key: !secret googletravel_api
+    api_key: !secret googleproject_api
+    origin: !secret googletravel_work
+    destination: !secret googletravel_home
+    scan_interval: 10
+    options:
+      mode: driving
+
+  - platform: google_travel_time
+    name: Home To Work
+    api_key: !secret googletravel_api
+    origin: !secret googletravel_home
+    destination: !secret googletravel_work
+    scan_interval: 10
+    options:
+      mode: driving
+
+  # We can also track time to home from specific devicces if ttracking GPS coords e.g. with Owntracks
+  # Tracking Michel to zone.home
+  #- platform: google_travel_time
+  #  name: Michel naar huis
+  #  api_key: ****************************************************
+  #  origin: device_tracker.iphonevanmichel
+  #  destination: zone.home
+
+
+
+#===================================================================================================
+# Groups
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/group/
+# Icons: https://materialdesignicons.com/
+#
+# If not using custom Lovelace, groups can be shown in the main dashboard or tabs at the top of the
+# overview screen (set 'view: true').
+# Groups with actions associated (e.g. switches) will have a group-wide switch at the top by default
+# unless we set 'control: hidden'.
+# Groups can be referenced as part of other groups too.
+#===================================================================================================
+
+group:
+  travel_time:
+    name: Travel Time
+    view: false
+    control: hidden
+    icon: mdi:car
+    entities:
+      - sensor.home_to_work
+      - sensor.work_to_home

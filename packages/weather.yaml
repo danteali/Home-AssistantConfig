@@ -1,0 +1,85 @@
+####################################################################################################
+# Package - Weather
+####################################################################################################
+
+
+#===================================================================================================
+# Sensors 
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/sensor/
+#===================================================================================================
+
+sensor:
+  - platform: yr
+    name: Weather_Forecast
+    forecast: 24
+    monitored_conditions:
+      - temperature
+      - symbol
+      - precipitation
+      - windSpeed
+      - pressure
+      - windDirection
+      - humidity
+      #- fog
+      - cloudiness
+      #- lowClouds
+      #- mediumClouds
+      #- highClouds
+      #- dewpointTemperature
+
+  - platform: yr
+    name: Weather_Current
+    monitored_conditions:
+      - temperature
+      - symbol
+      - precipitation
+      - windSpeed
+      - pressure
+      - windDirection
+      - humidity
+      - cloudiness
+
+#===================================================================================================
+# Groups
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/group/
+# Icons: https://materialdesignicons.com/
+#
+# If not using custom Lovelace, groups can be shown in the main dashboard or tabs at the top of the
+# overview screen (set 'view: true').
+# Groups with actions associated (e.g. switches) will have a group-wide switch at the top by default
+# unless we set 'control: hidden'.
+# Groups can be referenced as part of other groups too.
+#===================================================================================================
+
+group:
+  weather_current:
+    name: Weather - Current
+    view: false
+    control: hidden
+    icon: mdi:weather-cloudy
+    entities:
+      - sensor.weather_current_symbol
+      - sensor.weather_current_temperature
+      - sensor.weather_current_precipitation
+      - sensor.weather_current_wind_direction
+      - sensor.weather_current_wind_speed
+      - sensor.weather_current_pressure
+      - sensor.weather_current_cloudiness
+      - sensor.weather_current_humidity
+  
+  weather_forecast:
+    name: Weather - Forecast
+    view: false
+    control: hidden
+    icon: mdi:weather-fog
+    entities:
+      - sensor.weather_forecast_symbol
+      - sensor.weather_forecast_temperature
+      - sensor.weather_forecast_precipitation
+      - sensor.weather_forecast_wind_direction
+      - sensor.weather_forecast_wind_speed
+      - sensor.weather_forecast_pressure
+      - sensor.weather_forecast_cloudiness
+      - sensor.weather_forecast_humidity

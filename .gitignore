@@ -1,21 +1,55 @@
 # Basically ignores everything except yamls
 # A * ensures that everything will be ignored.
 *
+*.conf
+*.crt
+*.csr
+*.db-journal
+*.key
+*.pid
+*.xml
 
 # You can whitelist files/folders with !, these will not be ignored.
-!*.yaml
-!.gitignore
-!*.md
 !*.disabled
+!*.md
+!*.yaml
 !*automation
+!*binary_sensor
+!*camera
+!*device_tracker
+!*group
+!*input_select
+!*notify
+!*packages
+!*python_scripts
+!*scene
+!*script
+!*sensor
+!*switch
+!*themes
+!.gitignore
 
-# Explicit Ignore 
-.storage
+# Need to again specify any ignores which would otherwise fall inside the whitelists e.g. secrets.yaml
+
+# Explicit Ignore - folders
 .cloud
 .google.token
+.storage
+deps
+lib
 tts
+www
 
-# Ensure these YAML files are ignored, otherwise your secret data/credentials will leak.
+# Explicit Ignore - files
+harmony_media_room.conf
+home-assistant.log
+home-assistant_v2.db
+OZW_Log.txt
+phue.conf
+plex.conf
+pyozw.sqlite
+
+# Explicit Ignore - yamls
 ip_bans.yaml
-secrets.yaml
 known_devices.yaml
+secrets.yaml

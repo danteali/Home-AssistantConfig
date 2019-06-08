@@ -1,0 +1,33 @@
+####################################################################################################
+## Package - Custom Updater
+####################################################################################################
+
+# Sources:
+# https://custom-components.github.io/custom_updater/Installation
+
+# todo:
+# Add customer updater card: https://github.com/custom-cards/tracker-card
+
+#===================================================================================================
+# Groups
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/group/
+# Icons: https://materialdesignicons.com/
+#
+# If not using custom Lovelace, groups can be shown in the main dashboard or tabs at the top of the
+# overview screen (set 'view: true').
+# Groups with actions associated (e.g. switches) will have a group-wide switch at the top by default
+# unless we set 'control: hidden'.
+# Groups can be referenced as part of other groups too.
+#===================================================================================================
+
+group:
+  custom_updater:
+    name: Custom Updater
+    view: false
+    control: hidden
+    icon: mdi:progress-download
+    entities:
+      - sensor.custom_component_tracker
+      - sensor.custom_card_tracker
+      - sensor.custom_python_script_tracker

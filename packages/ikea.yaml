@@ -1,0 +1,116 @@
+##############################################################
+## Package  ##
+##############################################################
+
+##########################################################
+## Ikea Devices
+##########################################################
+
+# The component setup is done in HA GUI
+
+##############################################################
+## Automation  ##
+##############################################################
+
+automation:
+# Turn on living room lights at sunset
+  - id: 'living_room_lights_on_sunset'
+    alias: 'Living Room Lights On at Sunset'
+    initial_state: True
+    trigger:
+      - platform: sun
+        event: sunset
+        offset: '-00:30:00'
+    action:
+      - service: light.turn_on
+        data:
+          entity_id: light.living_room_big_lamp
+          #transition: 10
+      - service: switch.turn_on
+        data:
+          entity_id: switch.living_room_small_lamp
+
+#Turn off living room lights at night in case we forget
+  - id: 'living_room_lights_off_night'
+    alias: 'Living Room Lights Off at Night'
+    initial_state: True
+    trigger:
+      platform: time
+      at: "00:15:00"
+    action:
+      - service: light.turn_off
+        data:
+          entity_id: light.living_room_big_lamp
+          #transition: 10
+      - service: switch.turn_off
+        data:
+          entity_id: switch.living_room_small_lamp
+
+### Dash button discontinued so no longer using
+#  - id: 'living_rm_lights_amazon_dash'
+#    alias: Toggle Living Room Lights
+#    initial_state: True
+#    trigger:
+#      - platform: event
+#        event_type: dash_toggle_lights
+#    action:
+#      - service: switch.toggle
+#        entity_id: switch.living_room_small_lamp
+#      - service: light.toggle
+#        entity_id: light.living_room_big_lamp
+
+
+
+
+#===================================================================================================
+# Groups
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/group/
+# Icons: https://materialdesignicons.com/
+#
+# If not using custom Lovelace, groups can be shown in the main dashboard or tabs at the top of the
+# overview screen (set 'view: true').
+# Groups with actions associated (e.g. switches) will have a group-wide switch at the top by default
+# unless we set 'control: hidden'.
+# Groups can be referenced as part of other groups too.
+#===================================================================================================
+
+group:
+  ikea_plugs:
+    name: IKEA Plugs
+    view: false
+    control: hidden
+    icon: mdi:power-socket-uk
+    entities:
+      - switch.living_room_small_lamp
+      - switch.tradfri_control_outlet
+      - switch.james_s_fairy_lights
+      - switch.chloe_s_fairy_lights
+  
+  ikea_switch_batteries:
+    name: IKEA Switch Batteries
+    view: false
+    control: hidden
+    icon: mdi:battery-charging-wireless-70
+    entities:
+      - sensor.living_room_remote
+      - sensor.movie_room_dimmer
+      - sensor.wireless_dimmer_1
+      - sensor.wireless_dimmer_2
+  
+  lights_living_room:
+    name: Living Room Lights
+    view: false
+    icon: mdi:lightbulb
+    entities:
+      - switch.living_room_small_lamp
+      - light.living_room_big_lamp
+  
+  lights_movie_room:
+    name: Movie Room Lights
+    view: false
+    icon: mdi:lightbulb
+    entities:
+      - light.movie_room_left
+      - light.movie_room_right
+

@@ -1,0 +1,60 @@
+####################################################################################################
+# Package - Log Levels
+####################################################################################################
+
+#  Dynamically set the log levels without having to restart HASS or edit configuration.yaml
+
+# Sources:
+# https://github.com/CCOSTAN/Home-AssistantConfig/blob/master/config/packages/logger.yaml
+# https://community.home-assistant.io/t/logger-set-level/14267
+
+
+homeassistant:
+  customize_glob:
+    "input_select.log_*":
+      icon: mdi:bug
+      hidden: False
+
+#===================================================================================================
+# Input Select 
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/input_select/
+#===================================================================================================
+
+input_select:
+  log_level:
+    name: Log Level
+    options:
+      - critical
+      - fatal
+      - error
+      - warning
+      - warn
+      - info
+      - debug
+      - notset
+    initial: warn
+
+
+#===================================================================================================
+# Automation
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/automation/
+# https://www.home-assistant.io/docs/automation/examples/
+#===================================================================================================
+
+automation:
+  - alias: Log Level
+    trigger:
+      platform: state
+      entity_id:
+        - input_select.log_level
+#        - input_select.log_component
+    action:
+      - service: logger.set_level
+        data_template:
+          homeassistant.components: "{{ states.input_select.log_level.state }}"
+      #- service: logger.set_level
+      #  data_template:
+      #    homeassistant.components: "{{ trigger.to_state.state }}"
+

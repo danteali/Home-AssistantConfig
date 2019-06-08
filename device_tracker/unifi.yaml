@@ -1,0 +1,15 @@
+#===================================================================================================
+# Device Tracker
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/device_tracker/
+#===================================================================================================
+
+# https://www.home-assistant.io/components/unifi/#presence-detection
+
+  - platform: unifi_direct
+    host: 192.168.0.2
+    username: !secret unifi_user
+    password: !secret unifi_pwd
+    consider_home: 120
+    new_device_defaults:
+      track_new_devices: false

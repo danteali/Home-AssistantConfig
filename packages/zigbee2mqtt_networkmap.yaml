@@ -1,0 +1,40 @@
+####################################################################################################
+# Package - Zigbee2MQTT Network Map
+####################################################################################################
+
+# Sources:
+# https://github.com/rgruebel/ha_zigbee2mqtt_networkmap
+
+
+#===================================================================================================
+# Component Initialisation 
+#===================================================================================================
+ 
+zigbee2mqtt_networkmap:
+  #topic: your topic (optional, default zigbee2mqtt)
+panel_iframe:
+  networkmap:
+    title: 'Zigbee Map'
+    url: '/local/zigbee2mqtt_networkmap/map.html'
+    icon: 'mdi:graphql'
+
+
+#===================================================================================================
+# Automation
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/automation/
+# https://www.home-assistant.io/docs/automation/examples/
+#===================================================================================================
+
+automation:
+  - id: update_zigbee2mqtt_networkmap
+    alias: 'Zigbee Map Update'  
+    initial_state: True
+    hide_entity: true  
+    trigger:
+      platform: time_pattern
+      minutes: '/10'
+      seconds: 00
+    action:
+      service: zigbee2mqtt_networkmap.update
+

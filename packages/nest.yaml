@@ -1,0 +1,40 @@
+####################################################################################################
+## Package - Nest
+####################################################################################################
+
+# Source:
+# https://www.home-assistant.io/components/nest/
+
+# The component setup is in configuration.yaml
+
+#===================================================================================================
+# Groups
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/group/
+# Icons: https://materialdesignicons.com/
+#
+# If not using custom Lovelace, groups can be shown in the main dashboard or tabs at the top of the
+# overview screen (set 'view: true').
+# Groups with actions associated (e.g. switches) will have a group-wide switch at the top by default
+# unless we set 'control: hidden'.
+# Groups can be referenced as part of other groups too.
+#===================================================================================================
+
+group:
+  nest_stats:
+    name: Nest
+    view: false
+    control: hidden
+    icon: mdi:fire
+    entities:
+      - sensor.living_room_thermostat_temperature
+      - sensor.living_room_thermostat_target
+      - sensor.living_room_thermostat_hvac_state
+      - binary_sensor.living_room_thermostat_has_leaf
+      - sensor.living_room_thermostat_humidity
+      - binary_sensor.fitzallen_place_away
+      - binary_sensor.living_room_thermostat_is_using_emergency_heat
+      - binary_sensor.living_room_thermostat_fan
+      - binary_sensor.living_room_thermostat_is_locked
+      - binary_sensor.living_room_thermostat_online
+      - sensor.living_room_thermostat_operation_mode

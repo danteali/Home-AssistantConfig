@@ -1,0 +1,93 @@
+####################################################################################################
+# Package - Dashboard Theme
+####################################################################################################
+
+# Sources: 
+# https://www.juanmtech.com/themes-in-home-assistant/
+# https://github.com/maartenpaauw/home-assistant-community-themes
+
+#===================================================================================================
+# Input Select 
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/input_select/
+#===================================================================================================
+
+input_select:
+  dash_theme:
+    name: Choose template
+    options:
+      - Light - Green
+      - Dark - Green
+    initial: Light - Green
+    icon: mdi:theme-light-dark
+
+#===================================================================================================
+# Automation
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/automation/
+# https://www.home-assistant.io/docs/automation/examples/
+#===================================================================================================
+
+automation:
+  - id: dashboard_theme_input_select
+    alias: 'Set theme startup or select'
+    initial_state: True
+    trigger:
+      - platform: homeassistant
+        event: start
+      - platform: state
+        entity_id: input_select.dash_theme
+    action:
+      - service_template: frontend.set_theme
+        data_template:
+          name: "{{ states.input_select.dash_theme.state }}"
+  
+  - id: dashboard_theme_sunset
+    alias: 'Set theme sunset'
+    initial_state: True
+    trigger:
+      - platform: state
+        entity_id: sun.sun
+        from: 'above_horizon'
+        to: 'below_horizon'
+    action:
+      - service: frontend.set_theme
+        data:
+          name: "Dark - Green"
+  
+  - id: dashboard_theme_sunrise
+    alias: 'Set theme sunrise'
+    initial_state: True
+    trigger:
+      - platform: state
+        entity_id: sun.sun
+        from: 'below_horizon'
+        to: 'above_horizon'
+    action:
+      - service: frontend.set_theme
+        data:
+          name: "Light - Green"
+
+#===================================================================================================
+# Groups
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/group/
+# Icons: https://materialdesignicons.com/
+#
+# If not using custom Lovelace, groups can be shown in the main dashboard or tabs at the top of the
+# overview screen (set 'view: true').
+# Groups with actions associated (e.g. switches) will have a group-wide switch at the top by default
+# unless we set 'control: hidden'.
+# Groups can be referenced as part of other groups too.
+#===================================================================================================
+
+# Give it a group so it doesn't appear in the generic 'Input Select' group
+
+group:
+  dash_theme:
+    name: Dashboard Theme
+    view: false
+    control: hidden
+    icon: mdi:format-color-fill
+    entities:
+      - input_select.dash_theme

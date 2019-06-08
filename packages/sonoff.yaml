@@ -1,0 +1,85 @@
+####################################################################################################
+## Package - Sonoff
+####################################################################################################
+
+# Source:
+# https://github.com/arendst/Sonoff-Tasmota/wiki
+
+# The sonoff switches themselves should be auto discovered but any additional sensors may need to 
+# be manually configured.
+
+#===================================================================================================
+# Binary Sensor
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/sensor/
+#===================================================================================================
+
+binary_sensor:
+  - platform: mqtt
+    state_topic: "stat/sonoffbasic02/PIR2"
+    name: "sonoffbasic02 PIR"
+
+# For an mqtt motion binary_sensor we need to tell HA that it is a motion sensor so dd this to
+# customize.yaml:
+# binary_sensor.sonoffbasic02_PIR:
+#   device_class: motion
+
+#===================================================================================================
+# Groups
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/group/
+# Icons: https://materialdesignicons.com/
+#
+# If not using custom Lovelace, groups can be shown in the main dashboard or tabs at the top of the
+# overview screen (set 'view: true').
+# Groups with actions associated (e.g. switches) will have a group-wide switch at the top by default
+# unless we set 'control: hidden'.
+# Groups can be referenced as part of other groups too.
+#===================================================================================================
+
+group:
+  sonoff:
+    name: Sonoff Devices
+    view: false
+    control: hidden
+    icon: mdi:power-socket-uk
+    entities:
+      - switch.sonoffbasic01
+      - switch.sonoffbasic02
+      - sensor.sonoffbasic01_status
+      - sensor.sonoffbasic02_status
+      - binary_sensor.sonoffbasic02_PIR
+
+
+
+
+#===================================================================================================
+# Automation
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/automation/
+# https://www.home-assistant.io/docs/automation/examples/
+#===================================================================================================
+
+# To get motion detector to do something we can use an autmation like this or use node-red
+#automation:
+#  - alias: 'D1 motion ON'
+#    trigger:
+#      - platform: state
+#        entity_id: binary_sensor.d1_pir
+#        from: 'off'
+#        to: 'on'
+#    action:
+#      - service: light.turn_on
+#        data:
+#          entity_id: light.d1mini_ws2812
+#  - alias: 'D1 motion OFF'
+#    trigger:
+#      - platform: state
+#        entity_id: binary_sensor.d1_pir
+#        from: 'on'
+#        to: 'off'
+#        for: '00:05:00'
+#    action:
+#      - service: light.turn_off
+#        data:
+#          entity_id: light.d1mini_ws2812
