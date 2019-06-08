@@ -1,5 +1,6 @@
 project_id: home-assistant-240311
-api_key: AIzaSyCpuRqT2vmyGkzxQSDCQGAzJqzm74J4gPA
+#api_key: !secret googleass_api
+api_key: !secret googleproject_api
 expose_by_default: false
 entity_config:
   light.living_room_big_lamp:
