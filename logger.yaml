@@ -13,6 +13,7 @@ logs:
   homeassistant.components.websocket_api.http.connection: warn
   haffmpeg.core: warn
   alexapy.alexawebsocket: warn
+  
 #  homeassistant.components.automation: info
 #  homeassistant.components.input_select: debug
 #  homeassistant.core: warn
