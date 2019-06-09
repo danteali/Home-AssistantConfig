@@ -112,8 +112,8 @@ device_tracker.win_4s81vuhb27j:
   friendly_name: Laptop - Matebook
 switch.glances:
   icon: mdi:chart-line-variant
-switch.plex:
-  icon: mdi:plex
+#switch.plex:
+#  icon: mdi:plex
 script.restart_ha:
   icon: mdi:home
 sensor.ikea5button_action:
