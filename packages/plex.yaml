@@ -1,0 +1,28 @@
+####################################################################################################
+## Package - Alexa Media Player
+####################################################################################################
+
+# Source: 
+# https://www.home-assistant.io/components/plex/
+
+# Auto discovery didn't work, I think cause it finds the docker IP address instead of the NAS IP.
+
+
+# Plex
+#https://www.home-assistant.io/components/plex/
+media_player:
+  - platform: plex
+    show_all_controls: true
+    use_episode_art: true
+    remove_unavailable_clients: false
+    client_remove_interval: 300
+
+
+sensor:
+  - platform: plex
+    host: 192.168.0.10
+    port: 32400
+    name: Plex
+    #token: KyA5ouMToskXPPmxpBsg
+    #ssl: true
+    #verify_ssl: false
