@@ -184,24 +184,45 @@ sensor:
 
 # Some automations to set home/away states 
 
-#automation:
-#  alias: Arriving home
-#  trigger:
-#    platform: state
-#    entity_id: binary_sensor.motion_garage
-#    to: 'on'
-#  condition:
-#    condition: state
-#    entity_id: input_boolean.notify_home
-#    state: 'on'
-#  action:
-#    - service: input_boolean.turn_on
+automation:
+
+#  - id: arriving_home
+#    alias: Arriving home
+#    trigger:
+#      platform: state
+#      entity_id: binary_sensor.motion_garage
+#      to: 'on'
+#    condition:
+#      condition: state
+#      entity_id: input_boolean.notify_home
+#      state: 'on'
+#    action:
+#      - service: input_boolean.turn_on
+#        data:
+#          entity_id: input_boolean.notify_home
+#      - service: notify.pushbullet
 #      data:
-#        entity_id: input_boolean.notify_home
-#    - service: notify.pushbullet
-#    data:
-#      title: ""
-#      message: "Honey, I'm home!"
+#        title: ""
+#        message: "Honey, I'm home!"
+
+# Turn off when someone gets home...
+  - id: zone_home_leave_notify
+    alias: "Notify on leaving home"
+    trigger:
+      platform: zone
+      entity_id: device_tracker.life360_ryan
+      zone: zone.home
+      event: leave
+    action:
+      - service: notify.pushover
+        data:
+          message: "life360 left"
+#      - service: homeassistant.turn_off
+#        entity_id: group.away_automations
+#      - service: notify.iphone_pushbullet
+#        data:
+#          title: "I'm outta here!"
+#          message: "I'll be surprised if this works!"
 
 
 #===================================================================================================
