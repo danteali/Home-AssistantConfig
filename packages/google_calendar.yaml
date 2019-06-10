@@ -1,0 +1,67 @@
+####################################################################################################
+# Package - Google Calendar
+####################################################################################################
+
+# Sources:
+# https://www.home-assistant.io/components/calendar.google/
+
+# Think this may pull in any compatible APIs, not just calendar
+google:
+  client_id: !secret googleoauth_id
+  client_secret: !secret googleoauth_secret
+
+# Complete authentication (if needed) in the HA notification
+# Edit google_calendar.yaml to specify tracking etc.
+
+#===================================================================================================
+# Groups
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/group/
+# Icons: https://materialdesignicons.com/
+#
+# If not using custom Lovelace, groups can be shown in the main dashboard or tabs at the top of the
+# overview screen (set 'view: true').
+# Groups with actions associated (e.g. switches) will have a group-wide switch at the top by default
+# unless we set 'control: hidden'.
+# Groups can be referenced as part of other groups too.
+#===================================================================================================
+
+#group:
+#  google_cal:
+#    name: Google Calendars
+#    view: false
+#    control: hidden
+#    icon: mdi:car
+#    entities:
+
+
+
+
+#===================================================================================================
+# Automation
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/automation/
+# https://www.home-assistant.io/docs/automation/examples/
+#===================================================================================================
+
+#automation:
+#
+## Notify on specific events
+#- id: google_calendar_event_notify
+#  alias: Google Cal Notify On Specific Event
+#  initial_state: True
+#  hide_entity: true
+#  trigger:
+#    platform: state
+#    entity_id: calendar.calendar_name
+#    to: 'on'
+#  condition:
+#        condition: template
+#        value_template: "{{states.calendar.calendar_name.attributes.message == 'vacation' }}"
+#        #value_template: "{% if 'test3' in states.calendar.calendar_name.attributes.message %}}"
+#  action:
+#    - service: notify.pushover
+#      data_template:
+#        message: >
+#          New event:
+#          {{states.calendar.calendar_name.attributes.message}}   
