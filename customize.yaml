@@ -1,3 +1,24 @@
+####################################################################################################
+# Home Assistant Customization
+####################################################################################################
+
+#---------------------------------------------------------------------------------------------------
+# Icons: https://materialdesignicons.com/
+#
+# === Hidden ===
+# Set 'hidden: true' to hide element from dashboard
+#
+# === Tabs ===
+# If not using custom Lovelace, groups can be shown in the main dashboard or tabs at the top of the
+# overview screen (set 'view: true').
+#
+# ==== Group Switch ====
+# Groups with actions associated (e.g. switches) will have a group-wide switch at the top by default
+# unless we set 'control: hidden'.
+#
+# Groups can be referenced as part of other groups too.
+#---------------------------------------------------------------------------------------------------
+
 group.weather_current:
   order: 1
 group.weather_forecast:
@@ -124,3 +145,11 @@ zigbee2mqtt_networkmap.map_last_update:
   hidden: true
 binary_sensor.sonoffbasic02_PIR:
   device_class: motion
+group.calendar:
+  control: hidden
+
+switch.sonoffbasic02:
+  icon: mdi:alarm-light-outline
+  friendly_name: "sonoff"
+  emulated_hue: true
+  emulated_hue_name: "sonoff" 

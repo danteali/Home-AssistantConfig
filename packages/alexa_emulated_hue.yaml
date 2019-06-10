@@ -1,0 +1,26 @@
+####################################################################################################
+## Package - Alexa (Emulated Hue)
+####################################################################################################
+
+# Source: 
+# https://www.home-assistant.io/components/emulated_hue/
+
+# We can add HA devices to the Alexa app to control just like any other devices.
+# This is done by emulating a Philips Hue hub on the network.
+
+# To access in Alexa we need to anable the Hue skill then search for devices.
+
+#===================================================================================================
+# Component
+#===================================================================================================
+
+emulated_hue:
+  type: alexa
+  host_ip: 192.168.0.10
+  listen_port: 8300
+  expose_by_default: false
+  entities:
+    switch.sonoffbasic02:
+      hidden: false
+      name: "sonoff"
+

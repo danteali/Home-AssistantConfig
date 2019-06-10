@@ -36,24 +36,60 @@ google:
 # https://www.home-assistant.io/docs/automation/examples/
 #===================================================================================================
 
-automation:
-
-# Notify on specific events
-- id: google_calendar_event_notify
-  alias: Google Cal Notify On Specific Event
-  initial_state: True
-  hide_entity: true
-  trigger:
-    platform: state
-    entity_id: calendar.calendar_name
-    to: 'on'
-  #condition:
-  #      condition: template
-  #      value_template: "{{states.calendar.calendar_name.attributes.message == 'vacation' }}"
-  #      #value_template: "{% if 'test3' in states.calendar.calendar_name.attributes.message %}}"
-  action:
-    - service: notify.pushover
-      data_template:
-        message: >
-          New event:
-          {{states.calendar.calendar_name.attributes.message}}   
+#automation:
+#
+#  # Notify on specific events
+#  - id: google_calendar_event_notify
+#    alias: Google Cal Notify On Specific Event
+#    initial_state: True
+#    hide_entity: true
+#    trigger:
+#      platform: state
+#      entity_id: calendar.ryan
+#      to: 'on'
+#    action:
+#      - service: notify.pushover
+#        data_template:
+#          message: >
+#            New event:
+#            {{states.calendar.calendar_name.attributes.message}}   
+#
+#  # Notify on specific events
+#  - id: google_calendar_event_notify2
+#    alias: Google Cal Notify On Specific Event 2
+#    initial_state: True
+#    hide_entity: true
+#    trigger:
+#      platform: state
+#      entity_id: calendar.ryan
+#      to: 'on'
+#    condition:
+#      condition: template
+#      value_template: "{{states.calendar.calendar_name.attributes.message == 'vacation' }}"
+#    action:
+#      - service: notify.pushover
+#        data_template:
+#          message: >
+#            New event:
+#            {{states.calendar.calendar_name.attributes.message}}   
+#
+#  # Notify on events containing
+#  - id: google_calendar_event_notify3
+#    alias: Google Cal Notify On Specific Event 3
+#    initial_state: True
+#    hide_entity: true
+#    trigger:
+#      platform: state
+#      entity_id: calendar.ryan
+#      to: 'on'
+#    condition:
+#      condition: template
+#      value_template: >-
+#        {% if 'test3' in states.calendar.calendar_name.attributes.message %}}
+#        {% endif %}
+#    action:
+#      - service: notify.pushover
+#        data_template:
+#          message: >
+#            New event:
+#            {{states.calendar.calendar_name.attributes.message}}   
