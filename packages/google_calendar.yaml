@@ -26,15 +26,7 @@ google:
 # Groups can be referenced as part of other groups too.
 #===================================================================================================
 
-#group:
-#  google_cal:
-#    name: Google Calendars
-#    view: false
-#    control: hidden
-#    icon: mdi:car
-#    entities:
-
-
+# There is already a default calendar group
 
 
 #===================================================================================================
@@ -44,24 +36,24 @@ google:
 # https://www.home-assistant.io/docs/automation/examples/
 #===================================================================================================
 
-#automation:
-#
-## Notify on specific events
-#- id: google_calendar_event_notify
-#  alias: Google Cal Notify On Specific Event
-#  initial_state: True
-#  hide_entity: true
-#  trigger:
-#    platform: state
-#    entity_id: calendar.calendar_name
-#    to: 'on'
-#  condition:
-#        condition: template
-#        value_template: "{{states.calendar.calendar_name.attributes.message == 'vacation' }}"
-#        #value_template: "{% if 'test3' in states.calendar.calendar_name.attributes.message %}}"
-#  action:
-#    - service: notify.pushover
-#      data_template:
-#        message: >
-#          New event:
-#          {{states.calendar.calendar_name.attributes.message}}   
+automation:
+
+# Notify on specific events
+- id: google_calendar_event_notify
+  alias: Google Cal Notify On Specific Event
+  initial_state: True
+  hide_entity: true
+  trigger:
+    platform: state
+    entity_id: calendar.calendar_name
+    to: 'on'
+  #condition:
+  #      condition: template
+  #      value_template: "{{states.calendar.calendar_name.attributes.message == 'vacation' }}"
+  #      #value_template: "{% if 'test3' in states.calendar.calendar_name.attributes.message %}}"
+  action:
+    - service: notify.pushover
+      data_template:
+        message: >
+          New event:
+          {{states.calendar.calendar_name.attributes.message}}   

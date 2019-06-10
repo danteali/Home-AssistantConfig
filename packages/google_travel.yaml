@@ -57,7 +57,7 @@ sensor:
 #===================================================================================================
 
 group:
-  travel_time:
+  google_travel:
     name: Travel Time
     view: false
     control: hidden

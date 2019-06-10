@@ -53,3 +53,4 @@ pyozw.sqlite
 ip_bans.yaml
 known_devices.yaml
 secrets.yaml
+google_calendars.yaml

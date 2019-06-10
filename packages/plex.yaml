@@ -7,7 +7,6 @@
 
 # Auto discovery didn't work, I think cause it finds the docker IP address instead of the NAS IP.
 
-
 # Plex
 #https://www.home-assistant.io/components/plex/
 media_player:
@@ -17,6 +16,11 @@ media_player:
     remove_unavailable_clients: false
     client_remove_interval: 300
 
+#===================================================================================================
+# Sensors 
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/sensor/
+#===================================================================================================
 
 sensor:
   - platform: plex
@@ -26,3 +30,26 @@ sensor:
     #token: KyA5ouMToskXPPmxpBsg
     #ssl: true
     #verify_ssl: false
+
+
+#===================================================================================================
+# Groups
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/group/
+# Icons: https://materialdesignicons.com/
+#
+# If not using custom Lovelace, groups can be shown in the main dashboard or tabs at the top of the
+# overview screen (set 'view: true').
+# Groups with actions associated (e.g. switches) will have a group-wide switch at the top by default
+# unless we set 'control: hidden'.
+# Groups can be referenced as part of other groups too.
+#===================================================================================================
+
+group:
+  plex:
+    name: Plex
+    view: false
+    control: hidden
+    icon: mdi:library-video
+    entities:
+      - sensor.plex
