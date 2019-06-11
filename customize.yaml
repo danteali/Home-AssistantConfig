@@ -147,9 +147,3 @@ binary_sensor.sonoffbasic02_PIR:
   device_class: motion
 group.calendar:
   control: hidden
-
-switch.sonoffbasic02:
-  icon: mdi:alarm-light-outline
-  friendly_name: "sonoff"
-  emulated_hue: true
-  emulated_hue_name: "sonoff" 
