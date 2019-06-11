@@ -7,6 +7,9 @@
 
 # Auto discovery didn't work, I think cause it finds the docker IP address instead of the NAS IP.
 
+# Plex component is configured via the plex.conf file. Once it is connected the media_player
+# component below will work.
+
 # Plex
 #https://www.home-assistant.io/components/plex/
 media_player:
@@ -22,6 +25,8 @@ media_player:
 # https://www.home-assistant.io/components/sensor/
 #===================================================================================================
 
+# This sensor is independant from the Plex component, it should work even if the plex.conf file 
+# doesn't properly set up integration.
 sensor:
   - platform: plex
     host: 192.168.0.10
