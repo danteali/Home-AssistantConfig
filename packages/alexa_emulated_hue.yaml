@@ -20,7 +20,7 @@ emulated_hue:
   advertise_port: 8300
   listen_port: 8300
   expose_by_default: false
-  upnp_bind_multicast: true
+  upnp_bind_multicast: false
   entities:
     switch.sonoffbasic02:
       hidden: false
