@@ -58,3 +58,29 @@ automation:
       #  data_template:
       #    homeassistant.components: "{{ trigger.to_state.state }}"
 
+
+#===================================================================================================
+# Groups
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/group/
+# Icons: https://materialdesignicons.com/
+#
+# If not using custom Lovelace, groups can be shown in the main dashboard or tabs at the top of the
+# overview screen (set 'view: true').
+# Groups with actions associated (e.g. switches) will have a group-wide switch at the top by default
+# unless we set 'control: hidden'.
+# Groups can be referenced as part of other groups too.
+#===================================================================================================
+
+# There is only one entity here but at the moment it is the only input_select entity we have so it 
+# ends up in it's own card with a switch at the top. So adding to group so that it's not in a card
+# with a switch.
+
+group:
+  log_level:
+    name: Log Level
+    view: false
+    control: hidden
+    icon: mdi:bug-outline
+    entities:
+      - input_select.log_level
