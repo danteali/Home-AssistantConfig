@@ -10,7 +10,13 @@
   - platform: ping
     host: 192.168.0.10
     name: NAS - crush
-
+  - platform: ping
+    host: 192.168.0.20
+    name: Desktop
+  - platform: ping
+    host: 192.168.0.23
+    name: HTPC (TV)
+    
 
         ##########################################################
         ## WAN test script
