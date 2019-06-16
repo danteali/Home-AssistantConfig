@@ -124,23 +124,23 @@ alexa_media:
 #===================================================================================================
 
 automation:
-
-  # Make Music Room notify on doorbell motion
-  - id: alexa_music_room_notify_ring_motion
-    alias: Alexa - Notify Music Room of Doorbell Motion
-    initial_state: True
-    hide_entity: true
-    trigger:
-      - platform: state
-        entity_id: binary_sensor.ring_front_door_motion
-    action:
-      - service: notify.alexa_media
-        data:
-          data:
-            type: announce
-          target: 
-            - media_player.music_room
-          message: 'Ding-dong. Someone is at the door.'
+#
+#  # Make Music Room notify on doorbell motion
+#  - id: alexa_music_room_notify_ring_motion
+#    alias: Alexa - Notify Music Room of Doorbell Motion
+#    initial_state: True
+#    hide_entity: true
+#    trigger:
+#      - platform: state
+#        entity_id: binary_sensor.ring_front_door_motion
+#    action:
+#      - service: notify.alexa_media
+#        data:
+#          data:
+#            type: announce
+#          target: 
+#            - media_player.music_room
+#          message: 'Ding-dong. Someone is at the door.'
 
   # Make Music Room notify on doorbell ding
   #- id: alexa_music_room_notify_ring_ding

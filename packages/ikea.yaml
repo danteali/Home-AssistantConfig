@@ -83,7 +83,6 @@ group:
     icon: mdi:power-socket-uk
     entities:
       - switch.living_room_small_lamp
-      - switch.tradfri_control_outlet
       - switch.james_s_fairy_lights
       - switch.chloe_s_fairy_lights
   

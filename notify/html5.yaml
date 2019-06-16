@@ -1,0 +1,15 @@
+##############################################################
+## Notify  ##
+##############################################################
+
+        ##########################################################
+        ## HTML5
+        ##########################################################
+
+# https://www.home-assistant.io/components/html5
+
+  - platform: html5
+    name: html5
+    vapid_pub_key: !secret google_html5_pub
+    vapid_prv_key: !secret google_html5_priv
+    vapid_email: !secret google_email
