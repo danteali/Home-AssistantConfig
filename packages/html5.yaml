@@ -1,0 +1,78 @@
+####################################################################################################
+## Package - HTML5 Notification Callbacks
+####################################################################################################
+
+# Source:
+# https://www.home-assistant.io/components/html5/#automating-notification-events
+
+# This files is just setting  up some automations to test triggers from clicking on HTML5
+# notification actions
+
+
+#===================================================================================================
+# Automation
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/automation/
+# https://www.home-assistant.io/docs/automation/examples/
+#===================================================================================================
+
+automation:
+  - id: html5_test_received
+    alias: html5_test_received
+    initial_state: True
+    hide_entity: true
+    trigger:
+      - platform: event
+        event_type: html5_notification.received
+    action:
+      - service: persistent_notification.create
+        data:
+          notification_id: html5_test_received
+          message: HTML5 message received
+          title: HTML5 Test
+
+  - id: html5_test_cleared
+    alias: html5_test_cleared
+    initial_state: True
+    hide_entity: true
+    trigger:
+      - platform: event
+        event_type: html5_notification.closed
+    action:
+      - service: persistent_notification.create
+        data:
+          notification_id: html5_test_cleared
+          message: HTML5 message cleared
+          title: HTML5 Test
+
+  - id: html5_test_button1
+    alias: html5_test_button1
+    initial_state: True
+    hide_entity: true
+    trigger:
+      - platform: event
+        event_type: html5_notification.clicked
+        event_data:
+          action: button1
+    action:
+      - service: persistent_notification.create
+        data:
+          notification_id: html5_test_button1
+          message: HTML5 message button 1
+          title: HTML5 Test          
+
+  - id: html5_test_button2
+    alias: html5_test_button2
+    initial_state: True
+    hide_entity: true
+    trigger:
+      - platform: event
+        event_type: html5_notification.clicked
+        event_data:
+          action: button2
+    action:
+      - service: persistent_notification.create
+        data:
+          notification_id: html5_test_button2
+          message: HTML5 message button 2
+          title: HTML5 Test              

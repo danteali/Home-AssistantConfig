@@ -5,7 +5,9 @@
 # Sources:
 # https://github.com/pnbruckner/homeassistant-config/blob/master/docs/life360.md
 
-# Life360 component setup is done in configuration.yaml after installing custom_component
+# First install custom_component
+
+# See sensor and automation examples etc at the bottom of this file.
 
 #===================================================================================================
 # Device Tracker
@@ -13,7 +15,6 @@
 # https://www.home-assistant.io/components/device_tracker/
 #===================================================================================================
 
-device_tracker:
   - platform: life360
     username: !secret life360_user
     password: !secret life360_pwd

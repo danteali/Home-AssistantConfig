@@ -32,6 +32,7 @@ automation:
   - id: dashboard_theme_input_select
     alias: 'Set theme startup or select'
     initial_state: True
+    hide_entity: true
     trigger:
       - platform: homeassistant
         event: start
@@ -45,6 +46,7 @@ automation:
   - id: dashboard_theme_sunset
     alias: 'Set theme sunset'
     initial_state: True
+    hide_entity: true
     trigger:
       - platform: state
         entity_id: sun.sun
@@ -58,6 +60,7 @@ automation:
   - id: dashboard_theme_sunrise
     alias: 'Set theme sunrise'
     initial_state: True
+    hide_entity: true
     trigger:
       - platform: state
         entity_id: sun.sun
