@@ -147,3 +147,5 @@ binary_sensor.sonoffbasic02_PIR:
   device_class: motion
 group.calendar:
   control: hidden
+input_boolean.office_lights_motion_enabled:
+  hidden: true

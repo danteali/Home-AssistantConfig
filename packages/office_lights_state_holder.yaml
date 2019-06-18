@@ -1,0 +1,21 @@
+####################################################################################################
+# Package - Office Lights
+####################################################################################################
+
+# Just need a 'placewholder' switch to hold the status of whether the office lights motion detection
+# is enabled or not.
+
+# This will allow persistence between HA and Node Red restarts
+
+# customize.yaml updated to hide input - note hidden entities may not retain state over restarts
+
+#===================================================================================================
+# Input Boolean  
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/input_boolean/
+#===================================================================================================
+
+input_boolean:
+  office_lights_motion_enabled:
+    name: Office Lights - Motion Enabled?
+    icon: mdi:motion-sensor

@@ -88,8 +88,8 @@ group:
 # Guest = the only one which will be selectable in practice
 input_boolean:
   home_guest:
-    name: Guest?
-    #icon: mdi:
+    name: Guests Present?
+    icon: mdi:account-group
 #  home_occupied:
 #    name: Home Occupied?
 #    #icon: mdi:
