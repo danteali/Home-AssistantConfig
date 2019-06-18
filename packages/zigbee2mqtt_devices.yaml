@@ -5,6 +5,14 @@
 # Sources:
 # https://www.zigbee2mqtt.io/integration/home_assistant.html
 
+# If adding new devices:
+# - View log while adding device to config it is registered by USB dongle
+# - Copy zigbee2mqtt configuration.yaml to configuration.yaml2
+# - Edit new device friendly name
+# - Stop zigbee2mqtt container
+# - copy configuration.yaml2 back on top of configuration.yaml
+# - Search for new device in HA Entities list
+# - Edit entity name in HA to make sure it lines up with zigbee2mqtt friendly name
 
 #===================================================================================================
 # Groups
@@ -26,6 +34,8 @@ group:
     control: hidden
     icon: mdi:zigbee
     entities:
+      - switch.ikea_outlet_htpc_switch
+      - sensor.ikea_outlet_htpc_linkquality
       - sensor.ikea_5button_action
       - binary_sensor.ikea_motiondetector_occupancy
       - sensor.ikea_switch_click

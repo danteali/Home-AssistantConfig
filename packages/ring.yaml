@@ -78,7 +78,7 @@ automation:
       - service: downloader.download_file
         data_template:
           url: '{{ states.camera.front_door.attributes.video_url }}'
-          filename: 'ring/{{now().year}}-{{now().month}}.{{now().day}}-{{now().hour}}.{{now().minute}}.mp4'
+          filename: 'ring-{{now().year}}-{{now().month}}.{{now().day}}-{{now().hour}}.{{now().minute}}.mp4'
           overwrite: true
 
 # Download front door image - save as snapshot.jpg so we can always display latest image on dashboard
@@ -93,7 +93,7 @@ automation:
       - service:  camera.snapshot
         data:
           entity_id: camera.front_door
-          filename: 'ring/front_door_snapshot.jpg'
+          filename: 'ring-front_door_snapshot.jpg'
           overwrite: true
 
 # Download front door image
@@ -109,7 +109,7 @@ automation:
       - service:  camera.snapshot
         data:
           entity_id: camera.front_door
-          filename: 'ring/{{now().year}}-{{now().month}}.{{now().day}}-{{now().hour}}.{{now().minute}}.jpg'
+          filename: 'ring-{{now().year}}-{{now().month}}.{{now().day}}-{{now().hour}}.{{now().minute}}.jpg'
           overwrite: true
 
 
