@@ -9,14 +9,20 @@
   - platform: ping
     host: 192.168.0.10
     name: NAS
-  
+    count: 2
+    scan_interval: 15
+
   - platform: ping
     host: 192.168.0.20
     name: Desktop
+    count: 2
+    scan_interval: 15
   
   - platform: ping
     host: 192.168.0.23
     name: HTPC
+    count: 2
+    scan_interval: 15
     
 
 #===================================================================================================

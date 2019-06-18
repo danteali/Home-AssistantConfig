@@ -86,7 +86,6 @@ input_select:
     initial: None
     icon: mdi:desktop-tower
 
-input_select:
   power_htpc:
     name: HTPC Power Options
     options:
@@ -164,3 +163,8 @@ group:
     icon: mdi:desktop-tower-monitor
     entities:
       - switch.ikea_outlet_htpc_switch
+      - binary_sensor.htpc
+      - binary_sensor.desktop
+      - binary_sensor.nas
+      - input_select.power_desktop
+      - input_select.power_htpc
