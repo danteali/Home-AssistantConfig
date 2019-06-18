@@ -168,3 +168,5 @@ group:
       - binary_sensor.nas
       - input_select.power_desktop
       - input_select.power_htpc
+      - switch.htpc
+      - switch.desktop

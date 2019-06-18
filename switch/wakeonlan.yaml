@@ -1,0 +1,54 @@
+####################################################################################################
+# Package - Wake On Lan
+####################################################################################################
+
+# Couldn't get workng as a package so defining here.
+
+# Sources:
+# https://www.home-assistant.io/components/wake_on_lan/
+
+# WOL component enabled in configuration.yaml
+
+#===================================================================================================
+# Switch
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/switch/
+# https://www.home-assistant.io/components/switch.template/
+#===================================================================================================
+
+  - platform: wake_on_lan
+    mac_address: !secret HTPC_mac
+    name: "HTPC"
+    host: "192.168.0.23"
+    broadcast_address: "192.168.0.255"
+
+  - platform: wake_on_lan
+    mac_address: !secret desktop_mac
+    name: "Desktop"
+    host: "192.168.0.20"
+    broadcast_address: "192.168.0.255"
+
+#===================================================================================================
+# Groups
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/group/
+# Icons: https://materialdesignicons.com/
+#
+# If not using custom Lovelace, groups can be shown in the main dashboard or tabs at the top of the
+# overview screen (set 'view: true').
+# Groups with actions associated (e.g. switches) will have a group-wide switch at the top by default
+# unless we set 'control: hidden'.
+# Groups can be referenced as part of other groups too.
+#===================================================================================================
+
+# Will add to the group for controlling desktop/HTPC
+
+#group:
+#  wol:
+#    name: Wake On LAN
+#    view: false
+#    control: hidden
+#    icon: mdi:arrow-decision
+#    entities:
+#      - switch.htpc
+#      - switch.desktop
