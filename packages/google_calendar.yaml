@@ -13,6 +13,7 @@ google:
 # Complete authentication (if needed) in the HA notification
 # Edit google_calendar.yaml to specify tracking etc.
 
+
 #===================================================================================================
 # Groups
 #---------------------------------------------------------------------------------------------------

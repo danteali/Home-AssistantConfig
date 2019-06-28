@@ -35,6 +35,20 @@
           {{trigger.event.data.host_name}}
           ({{trigger.event.data.entity_id}})
         title: New device
+    - service: notify.slack
+      data_template:
+        message: >
+          New device:
+          {{trigger.event.data.host_name}}
+          ({{trigger.event.data.entity_id}})
+        title: New device
+    - service: notify.html5
+      data_template:
+        message: >
+          New device:
+          {{trigger.event.data.host_name}}
+          ({{trigger.event.data.entity_id}})
+        title: New device
     - service: persistent_notification.create
       data_template:
         notification_id: new_device
