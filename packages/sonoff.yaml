@@ -42,7 +42,8 @@ group:
     name: Sonoff Devices
     view: false
     control: hidden
-    icon: mdi:power-socket-uk
+    #icon: mdi:power-socket-uk
+    icon: fas:heart
     entities:
       - switch.sonoffbasic01
       - switch.sonoffbasic02
