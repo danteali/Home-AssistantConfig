@@ -19,6 +19,8 @@ I have various components configured in Home Assistant and mainly use the 'packa
 
 I have also used a number of 'Custom Components' which are effectively unofficial Home Assistant components. Some of which will probably end up integrated in the main Home Assistant service. The custom component files have not been included in this repo since they change often and are easily obtained from the developer's github pages. The custom components themselves are configured in the configuration.yaml file or in the 'packages' folder. The configuration will provide the necessary info on where to go to find the custom component.
 
-Below is a quick and dirty diagram of how the Docker services and automation components fit together...
+Below is a [quick and dirty diagram](https://app.creately.com/diagram/PrbMeype7UP/view) of how the Docker services and automation components fit together...
 
 ![HomeAutomation](https://raw.githubusercontent.com/danteali/Home-AssistantConfig/master/HomeAutomation.png)
+
+![HomeAutomation](https://app.creately.com/diagram/PrbMeype7UP/view)
