@@ -28,6 +28,7 @@
 !*switch
 !*themes
 !.gitignore
+!HomeAutomation.png
 
 # Need to again specify any ignores which would otherwise fall inside the whitelists e.g. secrets.yaml
 
