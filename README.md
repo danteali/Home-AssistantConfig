@@ -1,4 +1,4 @@
-# Home-AssistantConfig
+# Home Assistant Configuration
 
 This repo contains an always up to date record of my Home Assistant configuration. 
 
@@ -22,5 +22,3 @@ I have also used a number of 'Custom Components' which are effectively unofficia
 Below is a [quick and dirty diagram](https://app.creately.com/diagram/PrbMeype7UP/view) of how the Docker services and automation components fit together...
 
 ![HomeAutomation](https://raw.githubusercontent.com/danteali/Home-AssistantConfig/master/HomeAutomation.png)
-
-![HomeAutomation](https://app.creately.com/diagram/PrbMeype7UP/view)
