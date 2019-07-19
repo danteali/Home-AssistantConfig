@@ -1,0 +1,503 @@
+####################################################################################################
+# HOME ASSISTANT CONFIGURATION
+####################################################################################################
+
+# Core components listed at the top of this file.
+# Remaining additional components listed below in alphabetical order
+
+#===================================================================================================
+# BASIC CONFIG
+#---------------------------------------------------------------------------------------------------
+# https://home-assistant.io/docs/configuration/basic/
+#===================================================================================================
+
+homeassistant:
+  
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret home_lat
+  longitude: !secret home_long
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 0
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/London
+  # Customization file
+  customize: !include customize.yaml
+  packages: !include_dir_named packages
+  auth_mfa_modules:
+    - type: totp
+  auth_providers:
+    - type: trusted_networks
+      trusted_networks:
+        - 192.168.0.0/24
+        - 172.16.2.0/24
+        - 172.16.1.0/24
+      allow_bypass_login: true
+    - type: homeassistant
+    - type: legacy_api_password
+      api_password: !secret http_password
+  whitelist_external_dirs:
+    - /tmp
+    - /scratchpad
+
+#===================================================================================================
+# HTTP ACCESS
+#---------------------------------------------------------------------------------------------------
+# https://home-assistant.io/components/http/
+#
+# Using fail2ban instead of built in ip banning
+#===================================================================================================
+
+http:
+  base_url: !secret base_url
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 172.16.0.0/12
+    - 192.168.0.0/24
+  #trusted_networks:
+  #  - 192.168.0.0/24
+  #ip_ban_enabled: true
+  #login_attempts_threshold: 5
+
+#===================================================================================================
+# FRONTEND
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/frontend/
+# Sets up HA frontend
+#
+# The fontawsome extraurl config is from: https://github.com/thomasloven/hass-fontawesome
+# As well as the defulat material icons (https://materialdesignicons.com/) we can now also use the 
+# ones from: https://fontawesome.com/icons?d=gallery
+# To use them, just use the prefix:name from the gallery e.g. fas:heart
+#
+#===================================================================================================
+
+frontend:
+  themes: !include_dir_merge_named themes
+  javascript_version: latest
+  extra_html_url:
+    - /local/hass-fontawesome-solid.html
+    - /local/hass-fontawesome-regular.html
+    - /local/hass-fontawesome-brands.html
+
+#***************************************************************************************************
+
+
+#===================================================================================================
+# CLOUD
+#---------------------------------------------------------------------------------------------------
+# Enable the option for HA Cloud in settings screen
+#===================================================================================================
+
+cloud:
+
+#===================================================================================================
+# CONFIG
+#---------------------------------------------------------------------------------------------------
+# https://home-assistant.io/components/config/
+# The config component is designed to display panels in the frontend to configure and manage parts 
+# of Home Assistant.
+#===================================================================================================
+
+config:
+
+#===================================================================================================
+# CONVERSATION
+#---------------------------------------------------------------------------------------------------
+# Allows you to issue voice commands from the frontend in enabled browsers
+#===================================================================================================
+
+conversation:
+
+#===================================================================================================
+# DISCOVERY
+#---------------------------------------------------------------------------------------------------
+# Enable automatic discovery of devices on local network
+#===================================================================================================
+
+discovery:
+#  ignore:
+#    - plex_mediaserver
+#    - plex
+
+#===================================================================================================
+# DOWNLOADER
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/downloader/
+# Specify 'base' dir to be used for any downloads - must be a docker volume if it is to also be 
+# available on local system
+#===================================================================================================
+
+downloader:
+  download_dir: /scratchpad/homeassistant
+
+#===================================================================================================
+# FFMPEG
+#---------------------------------------------------------------------------------------------------
+# Enable processing video with ffmpeg
+#===================================================================================================
+
+ffmpeg:
+
+#===================================================================================================
+# LOGBOOK
+#---------------------------------------------------------------------------------------------------
+# Enable Logbook screen to view 
+#===================================================================================================
+
+logbook:
+  
+#===================================================================================================
+# LOGGER
+#---------------------------------------------------------------------------------------------------
+# https://home-assistant.io/components/logger/
+#
+# Lets you define the level of logging activities in Home Assistant.
+# Full config defined in logger.yaml
+#
+# We have also added a package with an input selector to enable on the fly changes to log levels
+# see packages/loglevel.yaml
+#===================================================================================================
+
+logger: !include logger.yaml
+
+#===================================================================================================
+# MAP
+#---------------------------------------------------------------------------------------------------
+# Enables a map showing the location of tracked devices
+#===================================================================================================
+
+map:
+
+#===================================================================================================
+# PYTHON_SCRIPT
+#---------------------------------------------------------------------------------------------------
+# This component allows you to write Python scripts that are exposed as services in Home Assistant. 
+# Each Python file created in the <config>/python_scripts/ folder will be exposed as a service.
+#===================================================================================================
+
+python_script:
+
+#===================================================================================================
+# RECORDER & HISTORY
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/recorder/
+# Recorder is responsible for storing details in a database, which then are handled by the history 
+# component
+#
+# https://home-assistant.io/components/history/ 
+# Enables support for tracking state changes over time and is shown in the History screen 
+#===================================================================================================
+
+recorder: !include recorder.yaml
+
+history:
+
+#===================================================================================================
+# SUN
+#---------------------------------------------------------------------------------------------------
+# https://home-assistant.io/components/sun/
+# The sun component will use your current location to track if the sun is above or below the 
+# horizon.
+#===================================================================================================
+
+sun:
+
+#===================================================================================================
+# SYSTEM_HEALTH
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/system_health/
+# System health component data can be viewed in the developer tools  
+#===================================================================================================
+
+system_health:
+
+#===================================================================================================
+# TEXT-TO-SPEECH (TTS)
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/tts/
+# Text-to-Speech (TTS) enables Home Assistant to speak to you.
+#===================================================================================================
+
+tts:
+  - platform: google_translate
+    service_name: google_say
+  #- platform: alexa_media
+  #  service_name: alexa_tts
+
+#===================================================================================================
+# UPDATER
+#---------------------------------------------------------------------------------------------------
+# The updater component will check daily for new releases. It will show a badge in the frontend if a
+# new version is found. 
+# Not really necessary fro docker since we're using watchdog to keep image updated.
+#===================================================================================================
+  
+#updater:
+
+#===================================================================================================
+# WEBHOOK
+#---------------------------------------------------------------------------------------------------
+# Enable webhooks to be used e.g. for IFTTT
+#===================================================================================================
+
+webhook:
+  
+#===================================================================================================
+# ZONES
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/zone/
+# Defining Home Zone - overwites the lat/long defined above. Allows us to define radius
+# Making radius small so that it is within life360's Home radius to not cause issues. 
+#===================================================================================================
+
+zone:
+  - name: Home
+    latitude: !secret home_lat
+    longitude: !secret home_long
+    radius: 20
+    icon: mdi:account-multiple
+
+
+
+
+
+
+
+
+
+####################################################################################################
+# 'ADDITIONAL' COMPONENTS
+####################################################################################################
+
+#===================================================================================================
+# CUSTOM COMPONENT - CUSTOM UPDATER
+# Potentially replaced by HACS (below) which is itself a custom component allowing us to 
+# manage/install/remove custom components from HA GUI. Have simply commented out the custom_updater 
+# config for now. And renamed the custom_updater folder to custom_updater_old
+#---------------------------------------------------------------------------------------------------
+# This automatically updates customer components if the author has enabled this functionality and 
+# the relevant URL is added below.
+# 
+# https://github.com/custom-components/custom_updater
+# https://github.com/keatontaylor/alexa_media_player/wiki#custom_updater-versions--110
+# https://github.com/pnbruckner/homeassistant-config/blob/master/docs/custom_updater.md
+#===================================================================================================
+
+#custom_updater:
+#  track:
+#    - components
+#    - cards
+#    - python_scripts
+#  component_urls:
+#    - https://raw.githubusercontent.com/keatontaylor/alexa_media_player/master/custom_components.json
+#    - https://raw.githubusercontent.com/pnbruckner/homeassistant-config/master/custom_components.json
+#  python_script_urls:
+#  - https://raw.githubusercontent.com/pnbruckner/homeassistant-config/master/python_scripts.json
+#  #hide_sensor: true         # Default: false
+#  #show_installable: true    # Default: false
+
+
+
+#===================================================================================================
+# GOOGLE ASSISTANT
+#---------------------------------------------------------------------------------------------------
+# Enable device discovery with Google Assistant
+#
+# https://www.home-assistant.io/components/google_assistant/
+#===================================================================================================
+
+google_assistant: !include google_assistant.yaml
+
+
+
+#===================================================================================================
+# HACS
+#---------------------------------------------------------------------------------------------------
+# Manage (Install, track, upgrade) and discover custom elements for Home Assistant directly from the UI.
+#
+# https://custom-components.github.io/hacs/installation/manual/
+# https://custom-components.github.io/hacs/usage/overview/
+#===================================================================================================
+
+hacs:
+  token: !secret hacs_github_token
+  
+
+
+#===================================================================================================
+# INFLUXDB
+#---------------------------------------------------------------------------------------------------
+# Enable logging of sensors/states/etc in InfluxDB
+#===================================================================================================
+
+#influxdb:
+#  host: 192.168.0.10
+#  max_retries: 10
+#  exclude:
+#    entities:
+#       - device_tracker.94652dc81785
+#    domains:
+#      - updater
+#      - group
+
+
+
+#===================================================================================================
+# MQTT
+#---------------------------------------------------------------------------------------------------
+# Add MQTT integration
+#===================================================================================================
+
+mqtt:
+  broker: 192.168.0.10
+  port: 1883
+  client_id: homeassistant-hub
+  discovery: true
+  discovery_prefix: homeassistant
+  birth_message:
+    topic: 'homeassistant/status'
+    payload: 'online'
+  will_message:
+    topic: 'homeassistant/status'
+    payload: 'offline'
+
+
+
+#===================================================================================================
+# NEST
+#---------------------------------------------------------------------------------------------------
+# Create a Nest dev account and add details below to allow control and monitoring of Nest devices
+#===================================================================================================
+
+nest:
+  client_id: !secret nest_id
+  client_secret: !secret nest_secret
+climate:
+  platform: nest
+
+
+
+#===================================================================================================
+# OWNTRACKS
+#---------------------------------------------------------------------------------------------------
+# Do initial setup in GUI. Then add additional config options below.
+# We moved to Life360 as it's more accurate
+#===================================================================================================
+
+#owntracks:
+#  max_gps_accuracy: 200
+#  waypoints: true
+#  #region_mapping:
+#  #  cabin: home
+#  #  office: work
+#  #mqtt_topic: "owntracks/#"
+#  #events_only: true
+#  #waypoint_whitelist:
+#  #  - ryan
+
+
+
+#===================================================================================================
+# PANELS
+#---------------------------------------------------------------------------------------------------
+# Add extra panels to left hand menu
+#===================================================================================================
+
+panel_iframe:
+  nodered:
+    title: Node Red
+    icon: mdi:download-network-outline
+    url: !secret nodered_url
+  tasmoadmin:
+    title: TasmoAdmin
+    icon: mdi:power-standby
+    url: !secret tasmoadmin_url
+
+
+
+#===================================================================================================
+# RING
+#---------------------------------------------------------------------------------------------------
+# Enable Ring camera integration
+#===================================================================================================
+
+ring:
+  username: !secret ring_user
+  password: !secret ring_pwd
+
+
+
+#===================================================================================================
+# WAKE_ON_LAN
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/wake_on_lan/
+#===================================================================================================
+
+wake_on_lan:
+
+
+
+#===================================================================================================
+# YALE ALARM CONTROL PANEL
+#---------------------------------------------------------------------------------------------------
+# Enable control of alarm and checking status
+#===================================================================================================
+
+alarm_control_panel:
+  - platform: yale_smart_alarm
+    username: !secret yale_user
+    password: !secret yale_pwd
+
+
+
+#===================================================================================================
+# PACKAGES 
+# Configuration done in package yamls instead of here (may be an incomplete list)
+#===================================================================================================
+
+# Custom Components:
+  # Alexa Media Player
+  # Life360
+  # Composite Sensor
+  # Zigbee2MQTT Map
+  # HADockermon - disabled 
+
+# Google Calendar
+
+# Emulated Hue - Amazon integration
+    # Couldn't get Alexa to find any devices. 
+    # May be due to not having proper ports exposed, should work with --net=host but don't want to 
+    # be that exposed and that may break docker networking for Traefik etc.
+    # We can try node red's Alexa integration instead.
+    #
+    # Initial config file but second attempt is configed in package:
+    # emulated_hue: !include emulated_hue.yaml - saved in config_bak/backup dir
+
+# Plex
+    # See package for sensor and media_player config. Actual Plex integration is defined in 
+    # plex.conf 
+
+
+
+#===================================================================================================
+# Remaining config broken up into other files/folders but defined in packages where possible
+#===================================================================================================
+
+group: !include_dir_merge_named group
+script: !include_dir_merge_named script
+
+automation: !include_dir_merge_list automation
+#camera: !include_dir_merge_list camera
+scene: !include_dir_merge_list scene
+switch: !include_dir_merge_list switch
+notify: !include_dir_merge_list notify
+binary_sensor: !include_dir_merge_list binary_sensor
+#sensor: !include_dir_merge_list sensor
+device_tracker: !include_dir_merge_list device_tracker
+
+input_select: !include_dir_merge_named input_select
+
