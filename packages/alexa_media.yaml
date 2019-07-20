@@ -2,6 +2,8 @@
 ## Package - Alexa Media Player
 ####################################################################################################
 
+# Uses custom component to add media player entries for all Amazon Echo devices.
+
 # Source: 
 # https://github.com/keatontaylor/alexa_media_player/wiki/Installation-and-Configuration
 

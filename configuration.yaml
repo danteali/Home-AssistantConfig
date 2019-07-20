@@ -325,6 +325,9 @@ google_assistant: !include google_assistant.yaml
 
 hacs:
   token: !secret hacs_github_token
+  appdaemon: true
+  python_script: true
+  theme: true
   
 
 
@@ -460,11 +463,18 @@ alarm_control_panel:
 #===================================================================================================
 
 # Custom Components:
+  # HACS - Community Store for Custom Components
+    # https://custom-components.github.io/hacs/installation/manual/
   # Alexa Media Player
+    # https://github.com/keatontaylor/alexa_media_player
   # Life360
+    # https://github.com/pnbruckner/homeassistant-config/blob/master/docs/life360.md
   # Composite Sensor
+    # https://github.com/pnbruckner/homeassistant-config/blob/master/docs/composite.md
   # Zigbee2MQTT Map
-  # HADockermon - disabled 
+    # https://github.com/rgruebel/ha_zigbee2mqtt_networkmap
+  # HADockermon - disabled
+    # https://github.com/custom-components/switch.hadockermon
 
 # Google Calendar
 
