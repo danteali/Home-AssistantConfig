@@ -2,24 +2,35 @@
 ## Package - Life 360
 ####################################################################################################
 
+# July 2019
+# Now a normal HA component, not a custom component. 
+# Configuration has moved from here to the configuation.yaml or packages/life360.yaml file.
+# https://community.home-assistant.io/t/life360-device-tracker-platform/52406/1077
+# https://www.home-assistant.io/components/life360/
+
 # Sources:
 # https://github.com/pnbruckner/homeassistant-config/blob/master/docs/life360.md
-
 # First install custom_component
 
-# See sensor and automation examples etc at the bottom of this file.
-
 #===================================================================================================
-# Device Tracker
-#---------------------------------------------------------------------------------------------------
-# https://www.home-assistant.io/components/device_tracker/
+# Configuration (July '19 - now config'd in configuration.yaml or packages/life360.yaml file)
 #===================================================================================================
 
-  - platform: life360
-    username: !secret life360_user
-    password: !secret life360_pwd
-    prefix: life360
-    add_zones: all
+#  - platform: life360
+#    username: !secret life360_user
+#    password: !secret life360_pwd
+#    prefix: life360
+#    add_zones: all
+
+
+
+
+
+
+#===================================================================================================
+
+# Below examples would not appear in a device_tracker.yaml file. They need to be moved to a 
+# packages.yaml file or a sensor/automation.yaml file.
 
 #===================================================================================================
 # Sensors 
