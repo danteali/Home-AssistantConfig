@@ -1,12 +1,9 @@
 ####################################################################################################
-## Package - Custom Updater
+## Package - HACS
 ####################################################################################################
 
 # Sources:
-# https://custom-components.github.io/custom_updater/Installation
-
-# todo:
-# Add customer updater card: https://github.com/custom-cards/tracker-card
+# https://custom-components.github.io/hacs/installation/manual/
 
 #===================================================================================================
 # Groups
@@ -22,12 +19,10 @@
 #===================================================================================================
 
 group:
-  custom_updater:
-    name: Custom Updater
+  hacs:
+    name: HACS
     view: false
     control: hidden
     icon: mdi:progress-download
     entities:
-      - sensor.custom_component_tracker
-      - sensor.custom_card_tracker
-      - sensor.custom_python_script_tracker
+      - sensor.hacs
