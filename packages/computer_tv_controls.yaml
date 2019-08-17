@@ -59,11 +59,11 @@ shell_command:
   sol_desktop_forcepoweroff: 'curl http://192.168.0.20:7760/forcepoweroff'
   sol_desktop_reboot: 'curl http://192.168.0.20:7760/reboot'
   wol_htpc: echo -e $(echo $(printf 'f%.0s' {1..12}; printf "$(echo "24:05:0f:d8:37:48" | sed 's/://g')%.0s" {1..16}) | sed -e 's/../\\x&/g') | nc -w1 -u 192.168.0.23 4000
-  sol_htpc_test: 'curl http://192.168.0.23:7760/test'
-  sol_htpc_suspend: 'curl http://192.168.0.23:7760/suspend'
-  sol_htpc_poweroff: 'curl http://192.168.0.23:7760/poweroff'
-  sol_htpc_forcepoweroff: 'curl http://192.168.0.23:7760/forcepoweroff'
-  sol_htpc_reboot: 'curl http://192.168.0.23:7760/reboot'
+  sol_htpc_test: 'curl http://192.168.0.24:7760/test'
+  sol_htpc_suspend: 'curl http://192.168.0.24:7760/suspend'
+  sol_htpc_poweroff: 'curl http://192.168.0.24:7760/poweroff'
+  sol_htpc_forcepoweroff: 'curl http://192.168.0.24:7760/forcepoweroff'
+  sol_htpc_reboot: 'curl http://192.168.0.24:7760/reboot'
 
 
 #===================================================================================================
