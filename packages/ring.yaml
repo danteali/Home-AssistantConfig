@@ -68,7 +68,7 @@ camera:
 automation:
   - id: ring_video_download
     alias: Ring Video Download
-    initial_state: True
+    initial_state: False
     hide_entity: true
     trigger:
       - platform: template
@@ -84,7 +84,7 @@ automation:
 # Download front door image - save as snapshot.jpg so we can always display latest image on dashboard
   - id: ring_image_download_snapshot
     alias: Ring Image Download - Snapshot
-    initial_state: True
+    initial_state: False
     hide_entity: true
     trigger:
       - platform: state
@@ -99,7 +99,7 @@ automation:
 # Download front door image
   - id: ring_image_download
     alias: Ring Image Download
-    initial_state: True
+    initial_state: False
     hide_entity: true
     trigger:
       - platform: template
