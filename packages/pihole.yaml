@@ -15,6 +15,8 @@ sensor:
   - platform: pi_hole
     name: Pihole Stats
     host: 192.168.0.10:37337
+    ssl: false
+    verify_ssl: false
     monitored_conditions:
       - ads_blocked_today
       - ads_percentage_today
