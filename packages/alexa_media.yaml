@@ -166,23 +166,23 @@ automation:
 
   # Play music
   # We can also use a playlist name in media_content_id e.g. "james's song list"
-  - id: alexa_chloes_room_music
-    alias: Alexa - Play Music in Chloe's Room
-    initial_state: True
-    hide_entity: true
-    trigger:
-      platform: time
-      at: '15:00:00'
-    condition:
-      condition: time
-      weekday:
-        - fri
-    action:
-      - service: media_player.play_media
-        data:
-          entity_id: media_player.chloe
-          media_content_id : "Stand By Me"
-          media_content_type: "SPOTIFY"
+  #- id: alexa_chloes_room_music
+  #  alias: Alexa - Play Music in Chloe's Room
+  #  initial_state: true
+  #  hide_entity: true
+  #  trigger:
+  #    platform: time
+  #    at: '15:00:00'
+  #  condition:
+  #    condition: time
+  #    weekday:
+  #      - fri
+  #  action:
+  #    - service: media_player.play_media
+  #      data:
+  #        entity_id: media_player.chloe
+  #        media_content_id : "Stand By Me"
+  #        media_content_type: "SPOTIFY"
 
   # Play/Pause music
   #- id: alexa_chloes_room_music

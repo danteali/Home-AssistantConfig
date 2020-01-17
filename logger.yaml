@@ -4,7 +4,8 @@
 
 # Log Severities: notset, debug, info, warn, warning, error, fatal, critical
 
-default: debug
+# Change to debug TEMPOARILY if you need to analyse log info otherwise logs get huge
+default: warn
 logs:
   homeassistant.components.unifi_direct: warn
   homeassistant.components.device_tracker: warn
