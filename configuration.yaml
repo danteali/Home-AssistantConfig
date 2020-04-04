@@ -426,11 +426,12 @@ panel_iframe:
 # RING
 #---------------------------------------------------------------------------------------------------
 # Enable Ring camera integration
+# - No longer done via config.yaml. Now a built in Integration so add via GUI Integrations screen.
 #===================================================================================================
 
-ring:
-  username: !secret ring_user
-  password: !secret ring_pwd
+#ring:
+#  username: !secret ring_user
+#  password: !secret ring_pwd
 
 
 

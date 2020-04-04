@@ -35,19 +35,23 @@ group:
     icon: mdi:zigbee
     entities:
       - switch.z2m_ikea_outlet_htpc_switch
-      - sensor.z2m_ikea_outlet_htpc_linkquality
       - sensor.z2m_ikea_5button_action
       - binary_sensor.z2m_ikea_motiondetector_occupancy
       - sensor.z2m_ikea_switch_click
       - light.z2m_ikea_bulb_wh_light
       - switch.z2m_ikea_outlet_office_lamp_switch
+      - sensor.z2m_ikea_dimmer_misc_power_action
+      - sensor.z2m_ikea_dimmer_misc_power_brightness
       - sensor.z2m_ikea_motiondetector_battery
       - sensor.z2m_ikea_switch_battery
+      - sensor.z2m_ikea_dimmer_misc_power_battery
       - sensor.z2m_ikea_5button_linkquality
       - sensor.z2m_ikea_motiondetector_linkquality
       - sensor.z2m_ikea_switch_linkquality      
       - sensor.z2m_ikea_bulb_wh_linkquality
       - sensor.z2m_ikea_outlet_office_lamp_linkquality
+      - sensor.z2m_ikea_outlet_htpc_linkquality
+      - sensor.z2m_ikea_dimmer_misc_power_linkquality
 
 
 #===================================================================================================
