@@ -78,8 +78,8 @@ automation:
 group:
   ikea_plugs:
     name: IKEA Plugs
-    view: false
-    control: hidden
+    #view: false
+    #control: hidden
     icon: mdi:power-socket-uk
     entities:
       - switch.living_room_small_lamp
@@ -88,8 +88,8 @@ group:
   
   ikea_switch_batteries:
     name: IKEA Switch Batteries
-    view: false
-    control: hidden
+    #view: false
+    #control: hidden
     icon: mdi:battery-charging-wireless-70
     entities:
       - sensor.living_room_remote
@@ -99,7 +99,7 @@ group:
   
   lights_living_room:
     name: Living Room Lights
-    view: false
+    #view: false
     icon: mdi:lightbulb
     entities:
       - switch.living_room_small_lamp
@@ -107,7 +107,7 @@ group:
   
   lights_movie_room:
     name: Movie Room Lights
-    view: false
+    #view: false
     icon: mdi:lightbulb
     entities:
       - light.movie_room_left

@@ -158,8 +158,7 @@ input_select:
 group:
   computer_tv_controls:
     name: Computer/TV Power
-    view: false
-    control: hidden
+    #control: hidden
     icon: mdi:desktop-tower-monitor
     entities:
       - switch.z2m_ikea_outlet_htpc_switch

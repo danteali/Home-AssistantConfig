@@ -59,8 +59,8 @@ sensor:
 group:
   google_travel:
     name: Travel Time
-    view: false
-    control: hidden
+    #view: false
+    #control: hidden
     icon: mdi:car
     entities:
       - sensor.home_to_work

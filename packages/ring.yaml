@@ -64,6 +64,9 @@ camera:
 # https://www.home-assistant.io/docs/automation/examples/
 #===================================================================================================
 
+# Check this for updated method since below automation was written
+#https://www.home-assistant.io/integrations/ring#saving-the-videos-captured-by-your-ring-door-bell
+
 # Download front door video
 automation:
   - id: ring_video_download
@@ -324,8 +327,8 @@ sensor:
 group:
   ring_doorbell:
     name: Ring Doorbell
-    view: false
-    control: hidden
+    #view: false
+    #control: hidden
     icon: mdi:camera-wireless
     entities:
       - sensor.ring_last_ding_front_door
@@ -344,8 +347,8 @@ group:
   
   ring_backyard:
     name: Ring Backyard
-    view: false
-    control: hidden
+    #view: false
+    #control: hidden
     icon: mdi:camera-wireless
     entities:
       - sensor.ring_last_motion_backyard
@@ -360,8 +363,8 @@ group:
   
   group.ring_chime:
     name: Ring Chime
-    view: false
-    control: hidden
+    #view: false
+    #control: hidden
     icon: mdi:camera-wireless
     entities:
       - sensor.ring_hallway_volume    

@@ -1,6 +1,9 @@
 project_id: home-assistant-240311
+# api_key now depeciated in favour of json file
 #api_key: !secret googleass_api
-api_key: !secret googleproject_api
+#api_key: !secret googleproject_api 
+service_account: !include google_service_account.json
+report_state: true
 expose_by_default: false
 entity_config:
   light.living_room_big_lamp:

@@ -89,8 +89,8 @@ automation:
 group:
   dash_theme:
     name: Dashboard Theme
-    view: false
-    control: hidden
+    #view: false
+    #control: hidden
     icon: mdi:format-color-fill
     entities:
       - input_select.dash_theme

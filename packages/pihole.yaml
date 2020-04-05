@@ -45,8 +45,8 @@ sensor:
 group:
   pihole:
     name: Pihole
-    view: false
-    control: hidden
+    #view: false
+    #control: hidden
     icon: mdi:arrow-decision
     entities:
       - sensor.pi_hole_status

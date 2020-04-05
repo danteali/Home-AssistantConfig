@@ -27,8 +27,8 @@
 group:
   people_tracker_info:
     name: People - Tracker Info
-    view: false
-    control: hidden
+    #view: false
+    #control: hidden
     icon: mdi:cellphone
     entities:
       - device_tracker.ryan_wifi
@@ -41,8 +41,8 @@ group:
 
   people_status:
     name: People - Status
-    view: false
-    control: hidden
+    #view: false
+    #control: hidden
     icon: mdi:cellphone
     entities:
       - sensor.home_occupied_status
@@ -56,8 +56,8 @@ group:
   # But making visible for not  
   people_input_booleans:
     name: People - Input Booleans
-    view: false
-    control: hidden
+    #view: false
+    #control: hidden
     icon: mdi:cellphone
     entities:
       - input_select.home_occupied

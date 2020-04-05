@@ -21,8 +21,8 @@
 group:
   hacs:
     name: HACS
-    view: false
-    control: hidden
+    #view: false
+    #control: hidden
     icon: mdi:progress-download
     entities:
       - sensor.hacs

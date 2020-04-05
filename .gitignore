@@ -50,6 +50,7 @@ OZW_Log.txt
 phue.conf
 plex.conf
 pyozw.sqlite
+google_service_account.json
 
 # Explicit Ignore - yamls
 ip_bans.yaml

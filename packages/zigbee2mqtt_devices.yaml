@@ -30,8 +30,8 @@
 group:
   zigbee2mqtt:
     name: Zigbee2MQTT Devices
-    view: false
-    control: hidden
+    #view: false
+    #control: hidden
     icon: mdi:zigbee
     entities:
       - switch.z2m_ikea_outlet_htpc_switch

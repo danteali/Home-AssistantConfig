@@ -53,8 +53,8 @@ sensor:
 group:
   plex:
     name: Plex
-    view: false
-    control: hidden
+    #view: false
+    #control: hidden
     icon: mdi:library-video
     entities:
       - sensor.plex

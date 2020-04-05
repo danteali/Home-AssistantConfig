@@ -56,8 +56,8 @@ sensor:
 group:
   weather_current:
     name: Weather - Current
-    view: false
-    control: hidden
+    #view: false
+    #control: hidden
     icon: mdi:weather-cloudy
     entities:
       - sensor.weather_current_symbol
@@ -71,8 +71,8 @@ group:
   
   weather_forecast:
     name: Weather - Forecast
-    view: false
-    control: hidden
+    #view: false
+    #control: hidden
     icon: mdi:weather-fog
     entities:
       - sensor.weather_forecast_symbol

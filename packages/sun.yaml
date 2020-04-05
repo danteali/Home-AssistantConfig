@@ -74,8 +74,8 @@ sensor:
 group:
   sun_stats:
     name: Sun Statistics
-    view: false
-    control: hidden
+    #view: false
+    #control: hidden
     icon: mdi:weather-sunny
     entities:
       - sun.sun

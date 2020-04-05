@@ -26,7 +26,7 @@
 group:
   led_strips:
     name: LED Strips
-    view: false
+    #view: false
     icon: mdi:led-strip
     entities:
       - light.mclighting1

@@ -81,8 +81,8 @@ automation:
 group:
   log_level:
     name: Log Level
-    view: false
-    control: hidden
+    #view: false
+    #control: hidden
     icon: mdi:bug-outline
     entities:
       - input_select.log_level

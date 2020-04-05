@@ -40,8 +40,8 @@ binary_sensor:
 group:
   sonoff:
     name: Sonoff Devices
-    view: false
-    control: hidden
+    #view: false
+    #control: hidden
     #icon: mdi:power-socket-uk
     icon: fas:heart
     entities:

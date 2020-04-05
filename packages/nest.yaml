@@ -23,8 +23,8 @@
 group:
   nest_stats:
     name: Nest
-    view: false
-    control: hidden
+    #view: false
+    #control: hidden
     icon: mdi:fire
     entities:
       - sensor.living_room_thermostat_temperature

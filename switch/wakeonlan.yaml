@@ -17,13 +17,13 @@
 #===================================================================================================
 
   - platform: wake_on_lan
-    mac_address: !secret HTPC_mac
+    mac: !secret HTPC_mac
     name: "WOL HTPC"
     host: "192.168.0.23"
     broadcast_address: "192.168.0.255"
 
   - platform: wake_on_lan
-    mac_address: !secret desktop_mac
+    mac: !secret desktop_mac
     name: "WOL Desktop"
     host: "192.168.0.20"
     broadcast_address: "192.168.0.255"
