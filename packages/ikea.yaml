@@ -110,6 +110,6 @@ group:
     #view: false
     icon: mdi:lightbulb
     entities:
-      - light.movie_room_left
-      - light.movie_room_right
+      - light.movie_room_left_2
+      - light.movie_room_right_2
 
