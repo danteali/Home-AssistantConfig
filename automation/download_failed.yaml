@@ -9,7 +9,7 @@
 - id: download_failed_notify
   alias: Download Failed Notification
   initial_state: True
-  hide_entity: true
+  #hide_entity: true
   trigger:
     - platform: event
       event_type: downloader_download_failed

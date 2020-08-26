@@ -38,11 +38,11 @@
 # https://www.home-assistant.io/components/sensor/
 #===================================================================================================
 
-binary_sensor:
-  - platform: ring
-    monitored_conditions:
-      - ding
-      - motion
+#binary_sensor:
+#  - platform: ring
+#    monitored_conditions:
+#      - ding
+#      - motion
 
 
 #===================================================================================================
@@ -52,9 +52,9 @@ binary_sensor:
 # https://www.home-assistant.io/components/generic/
 #===================================================================================================
 
-camera:
-  - platform: ring
-    ffmpeg_arguments: -pred 1 -q:v 2
+#camera:
+#  - platform: ring
+#    ffmpeg_arguments: -pred 1 -q:v 2
 
 
 #===================================================================================================
@@ -67,53 +67,61 @@ camera:
 # Check this for updated method since below automation was written
 #https://www.home-assistant.io/integrations/ring#saving-the-videos-captured-by-your-ring-door-bell
 
-# Download front door video
-automation:
-  - id: ring_video_download
-    alias: Ring Video Download
-    initial_state: False
-    hide_entity: true
-    trigger:
-      - platform: template
-        value_template: '{{ is_state_attr(''sensor.ring_front_door_last_motion'',
-          ''recording_status'', ''ready'') }}'
-    action:
-      - service: downloader.download_file
-        data_template:
-          url: '{{ states.camera.front_door.attributes.video_url }}'
-          filename: 'ring-{{now().year}}-{{now().month}}.{{now().day}}-{{now().hour}}.{{now().minute}}.mp4'
-          overwrite: true
+# We can set a cron job to delete old videos with something like:
+#0 5 * * * find “/opt/homeassistant/config/www/downloads/camera.porch” -maxdepth 1 -mtime +14 -type f -name ‘*.mp4’ -delete
 
-# Download front door image - save as snapshot.jpg so we can always display latest image on dashboard
-  - id: ring_image_download_snapshot
-    alias: Ring Image Download - Snapshot
-    initial_state: False
-    hide_entity: true
-    trigger:
-      - platform: state
-        entity_id: binary_sensor.ring_front_door_motion
-    action:
-      - service:  camera.snapshot
-        data:
-          entity_id: camera.front_door
-          filename: 'ring-front_door_snapshot.jpg'
-          overwrite: true
+# Or this node-red flow:
+# https://community.home-assistant.io/t/saving-the-latest-ring-door-bell-video-locally/30196/32
 
-# Download front door image
-  - id: ring_image_download
-    alias: Ring Image Download
-    initial_state: False
-    hide_entity: true
-    trigger:
-      - platform: template
-        value_template: '{{ is_state_attr(''sensor.ring_front_door_last_motion'',
-          ''recording_status'', ''ready'') }}'
-    action:
-      - service:  camera.snapshot
-        data:
-          entity_id: camera.front_door
-          filename: 'ring-{{now().year}}-{{now().month}}.{{now().day}}-{{now().hour}}.{{now().minute}}.jpg'
-          overwrite: true
+## Download front door video
+#automation:
+#  - id: ring_video_download
+#    alias: Ring Video Download
+#    initial_state: False
+#    #hide_entity: true
+#    trigger:
+#      - platform: template
+#        value_template: '{{ is_state_attr(''sensor.ring_front_door_last_motion'',
+#          ''recording_status'', ''ready'') }}'
+#    action:
+#      - service: downloader.download_file
+#        data_template:
+#          url: '{{ states.camera.front_door.attributes.video_url }}'
+#          filename: 'ring-{{now().year}}-{{now().month}}.{{now().day}}-{{now().hour}}.{{now().minute}}.mp4'
+#          overwrite: true
+#
+## Download front door image - save as snapshot.jpg so we can always display latest image on dashboard
+## Could never get working
+#  - id: ring_image_download_snapshot
+#    alias: Ring Image Download - Snapshot
+#    initial_state: False
+#    #hide_entity: true
+#    trigger:
+#      - platform: state
+#        entity_id: binary_sensor.ring_front_door_motion
+#    action:
+#      - service:  camera.snapshot
+#        data:
+#          entity_id: camera.front_door
+#          filename: 'ring-front_door_snapshot.jpg'
+#          overwrite: true
+#
+## Download front door image
+## Could never get working
+#  - id: ring_image_download
+#    alias: Ring Image Download
+#    initial_state: False
+#    #hide_entity: true
+#    trigger:
+#      - platform: template
+#        value_template: '{{ is_state_attr(''sensor.ring_front_door_last_motion'',
+#          ''recording_status'', ''ready'') }}'
+#    action:
+#      - service:  camera.snapshot
+#        data:
+#          entity_id: camera.front_door
+#          filename: 'ring-{{now().year}}-{{now().month}}.{{now().day}}-{{now().hour}}.{{now().minute}}.jpg'
+#          overwrite: true
 
 
 
@@ -226,14 +234,13 @@ automation:
 # https://www.home-assistant.io/components/sensor/
 #===================================================================================================
 
-sensor:
-  # Main sensor set up
-  - platform: ring
+# STUFF FOR CONFIG VIA UI INTEGRATION
 
+sensor:
   #  Counting events
   - platform: history_stats
     name: Front Door Motions Today
-    entity_id: binary_sensor.ring_front_door_motion
+    entity_id: binary_sensor.front_door_motion
     state: 'on'
     type: count
     start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
@@ -241,7 +248,7 @@ sensor:
 
   - platform: history_stats
     name: Front Door Dings Today
-    entity_id: binary_sensor.ring_front_door_ding
+    entity_id: binary_sensor.front_door_ding
     state: 'on'
     type: count
     start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
@@ -249,66 +256,98 @@ sensor:
 
   - platform: history_stats
     name: Backyard Motions Today
-    entity_id: binary_sensor.ring_backyard_motion
+    entity_id: binary_sensor.backyard_motion
     state: 'on'
     type: count
     start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
     end: '{{ now() }}'
 
+#===================================================================================================
+# OLD STUFF - FROM INITAL MANUALLY DEFINED RING CONFIG
+
+#sensor:
+  ## Main sensor set up
+  #- platform: ring
+
+  ##  Counting events
+  #- platform: history_stats
+  #  name: Front Door Motions Today
+  #  entity_id: binary_sensor.ring_front_door_motion
+  #  state: 'on'
+  #  type: count
+  #  start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
+  #  end: '{{ now() }}'
+
+  #- platform: history_stats
+  #  name: Front Door Dings Today
+  #  entity_id: binary_sensor.ring_front_door_ding
+  #  state: 'on'
+  #  type: count
+  #  start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
+  #  end: '{{ now() }}'
+
+  #- platform: history_stats
+  #  name: Backyard Motions Today
+  #  entity_id: binary_sensor.ring_backyard_motion
+  #  state: 'on'
+  #  type: count
+  #  start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
+  #  end: '{{ now() }}'
+
   # Last motion
-  - platform: template
-    sensors:
-      ring_last_motion_front_door:
-        friendly_name: Last Motion - Front Door
-        icon_template: mdi:walk
-        value_template: >-
-          {% set today = now().day | int %}
-          {% set cat_date = ((as_timestamp(states.sensor.ring_front_door_last_motion.attributes.created_at) | timestamp_custom("%d")) | int) %}
-          {% if today == cat_date %}
-          {% set day = "Today" %}
-          {% elif (today - 1) == cat_date %}
-          {% set day = "Yesterday" %}
-          {% elif today == 1 and cat_date > 27 %}
-          {% set day = "Yesterday" %}
-          {% else %}
-          {% set day = as_timestamp(states.sensor.ring_front_door_last_motion.attributes.created_at) | timestamp_custom("%A")%}
-          {% endif %}
-          {% set time = as_timestamp(states.sensor.ring_front_door_last_motion.attributes.created_at) | timestamp_custom("%l:%M %p")%}
-          {{[day,time]|join(" ")}}
-      ring_last_motion_backyard:
-        friendly_name: Last Motion - Backyard
-        icon_template: mdi:walk
-        value_template: >-
-          {% set today = now().day | int %}
-          {% set cat_date = ((as_timestamp(states.sensor.ring_backyard_last_motion.attributes.created_at) | timestamp_custom("%d")) | int) %}
-          {% if today == cat_date %}
-          {% set day = "Today" %}
-          {% elif (today - 1) == cat_date %}
-          {% set day = "Yesterday" %}
-          {% elif today == 1 and cat_date > 27 %}
-          {% set day = "Yesterday" %}
-          {% else %}
-          {% set day = as_timestamp(states.sensor.ring_backyard_last_motion.attributes.created_at) | timestamp_custom("%A")%}
-          {% endif %}
-          {% set time = as_timestamp(states.sensor.ring_backyard_last_motion.attributes.created_at) | timestamp_custom("%l:%M %p")%}
-          {{[day,time]|join(" ")}}
-      ring_last_ding_front_door:
-        friendly_name: Last Ding
-        icon_template: mdi:bell
-        value_template: >-
-          {% set today = now().day | int %}
-          {% set cat_date = ((as_timestamp(states.sensor.ring_front_door_last_ding.attributes.created_at) | timestamp_custom("%d")) | int) %}
-          {% if today == cat_date %}
-          {% set day = "Today" %}
-          {% elif (today - 1) == cat_date %}
-          {% set day = "Yesterday" %}
-          {% elif today == 1 and cat_date > 27 %}
-          {% set day = "Yesterday" %}
-          {% else %}
-          {% set day = as_timestamp(states.sensor.ring_front_door_last_ding.attributes.created_at) | timestamp_custom("%A")%}
-          {% endif %}
-          {% set time = as_timestamp(states.sensor.ring_front_door_last_ding.attributes.created_at) | timestamp_custom("%l:%M %p")%}
-          {{[day,time]|join(" ")}}
+  #- platform: template
+  #  sensors:
+  #    ring_last_motion_front_door:
+  #      friendly_name: Last Motion - Front Door
+  #      icon_template: mdi:walk
+  #      value_template: >-
+  #        {% set today = now().day | int %}
+  #        {% set cat_date = ((as_timestamp(states.sensor.ring_front_door_last_motion.attributes.created_at) | timestamp_custom("%d")) | int) %}
+  #        {% if today == cat_date %}
+  #        {% set day = "Today" %}
+  #        {% elif (today - 1) == cat_date %}
+  #        {% set day = "Yesterday" %}
+  #        {% elif today == 1 and cat_date > 27 %}
+  #        {% set day = "Yesterday" %}
+  #        {% else %}
+  #        {% set day = as_timestamp(states.sensor.ring_front_door_last_motion.attributes.created_at) | timestamp_custom("%A")%}
+  #        {% endif %}
+  #        {% set time = as_timestamp(states.sensor.ring_front_door_last_motion.attributes.created_at) | timestamp_custom("%l:%M %p")%}
+  #        {{[day,time]|join(" ")}}
+  #    ring_last_motion_backyard:
+  #      friendly_name: Last Motion - Backyard
+  #      icon_template: mdi:walk
+  #      value_template: >-
+  #        {% set today = now().day | int %}
+  #        {% set cat_date = ((as_timestamp(states.sensor.ring_backyard_last_motion.attributes.created_at) | timestamp_custom("%d")) | int) %}
+  #        {% if today == cat_date %}
+  #        {% set day = "Today" %}
+  #        {% elif (today - 1) == cat_date %}
+  #        {% set day = "Yesterday" %}
+  #        {% elif today == 1 and cat_date > 27 %}
+  #        {% set day = "Yesterday" %}
+  #        {% else %}
+  #        {% set day = as_timestamp(states.sensor.ring_backyard_last_motion.attributes.created_at) | timestamp_custom("%A")%}
+  #        {% endif %}
+  #        {% set time = as_timestamp(states.sensor.ring_backyard_last_motion.attributes.created_at) | timestamp_custom("%l:%M %p")%}
+  #        {{[day,time]|join(" ")}}
+  #    ring_last_ding_front_door:
+  #      friendly_name: Last Ding
+  #      icon_template: mdi:bell
+  #      value_template: >-
+  #        {% set today = now().day | int %}
+  #        {% set cat_date = ((as_timestamp(states.sensor.ring_front_door_last_ding.attributes.created_at) | timestamp_custom("%d")) | int) %}
+  #        {% if today == cat_date %}
+  #        {% set day = "Today" %}
+  #        {% elif (today - 1) == cat_date %}
+  #        {% set day = "Yesterday" %}
+  #        {% elif today == 1 and cat_date > 27 %}
+  #        {% set day = "Yesterday" %}
+  #        {% else %}
+  #        {% set day = as_timestamp(states.sensor.ring_front_door_last_ding.attributes.created_at) | timestamp_custom("%A")%}
+  #        {% endif %}
+  #        {% set time = as_timestamp(states.sensor.ring_front_door_last_ding.attributes.created_at) | timestamp_custom("%l:%M %p")%}
+  #        {{[day,time]|join(" ")}}
 
 
 #===================================================================================================
@@ -324,50 +363,54 @@ sensor:
 # Groups can be referenced as part of other groups too.
 #===================================================================================================
 
-group:
-  ring_doorbell:
-    name: Ring Doorbell
-    #view: false
-    #control: hidden
-    icon: mdi:camera-wireless
-    entities:
-      - sensor.ring_last_ding_front_door
-      - sensor.ring_last_motion_front_door
-      - sensor.front_door_dings_today
-      - sensor.front_door_motions_today
-      - binary_sensor.ring_front_door_ding
-      - binary_sensor.ring_front_door_motion
-      - sensor.ring_front_door_last_ding
-      - sensor.ring_front_door_last_motion
-      - sensor.ring_front_door_last_activity
-      - sensor.ring_front_door_battery
-      - sensor.ring_front_door_volume
-      - sensor.ring_front_door_wifi_signal_category
-      - sensor.ring_front_door_wifi_signal_strength
-  
-  ring_backyard:
-    name: Ring Backyard
-    #view: false
-    #control: hidden
-    icon: mdi:camera-wireless
-    entities:
-      - sensor.ring_last_motion_backyard
-      - sensor.backyard_motions_today
-      - binary_sensor.ring_backyard_motion
-      - sensor.ring_backyard_last_motion
-      - sensor.ring_backyard_last_activity
-      - sensor.ring_backyard_battery
-      - sensor.ring_backyard_volume
-      - sensor.ring_backyard_wifi_signal_category
-      - sensor.ring_backyard_wifi_signal_strength
-  
-  group.ring_chime:
-    name: Ring Chime
-    #view: false
-    #control: hidden
-    icon: mdi:camera-wireless
-    entities:
-      - sensor.ring_hallway_volume    
-      - sensor.ring_hallway_wifi_signal_category
-      - sensor.ring_hallway_wifi_signal_strength
+# OLD STUFF FOR MANUALLY DEFINED SENSORS ETC. 
+# NEEDS CHANGED TO REFLECT UI CONFIGURED INTEGRATION ENTITY NAMES
+# NOT UPDATING NOW SINCE USING LOVELACE SO NO GROUP DEFINITION NEEDED IN CONFIG FILES.
+#
+#group:
+#  ring_doorbell:
+#    name: Ring Doorbell
+#    #view: false
+#    #control: hidden
+#    icon: mdi:camera-wireless
+#    entities:
+#      - sensor.ring_last_ding_front_door
+#      - sensor.ring_last_motion_front_door
+#      - sensor.front_door_dings_today
+#      - sensor.front_door_motions_today
+#      - binary_sensor.ring_front_door_ding
+#      - binary_sensor.ring_front_door_motion
+#      - sensor.ring_front_door_last_ding
+#      - sensor.ring_front_door_last_motion
+#      - sensor.ring_front_door_last_activity
+#      - sensor.ring_front_door_battery
+#      - sensor.ring_front_door_volume
+#      - sensor.ring_front_door_wifi_signal_category
+#      - sensor.ring_front_door_wifi_signal_strength
+# 
+#  ring_backyard:
+#    name: Ring Backyard
+#    #view: false
+#    #control: hidden
+#    icon: mdi:camera-wireless
+#    entities:
+#      - sensor.ring_last_motion_backyard
+#      - sensor.backyard_motions_today
+#      - binary_sensor.ring_backyard_motion
+#      - sensor.ring_backyard_last_motion
+#      - sensor.ring_backyard_last_activity
+#      - sensor.ring_backyard_battery
+#      - sensor.ring_backyard_volume
+#      - sensor.ring_backyard_wifi_signal_category
+#      - sensor.ring_backyard_wifi_signal_strength
+#
+#  group.ring_chime:
+#    name: Ring Chime
+#    #view: false
+#    #control: hidden
+#    icon: mdi:camera-wireless
+#    entities:
+#      - sensor.ring_hallway_volume    
+#      - sensor.ring_hallway_wifi_signal_category
+#      - sensor.ring_hallway_wifi_signal_strength
 

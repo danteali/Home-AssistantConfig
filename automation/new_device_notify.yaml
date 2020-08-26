@@ -10,7 +10,7 @@
 - id: new_device_notify
   alias: Notify for new devices
   initial_state: True
-  hide_entity: true
+  #hide_entity: true
   trigger:
     - platform: event
       event_type: device_tracker_new_device

@@ -1,0 +1,23 @@
+####################################################################################################
+# Package - Outside Garage
+####################################################################################################
+
+# Just need a 'placewholder' switch to hold the status of whether the front door motion detection
+# is enabled or not. Could maybe now be done dynamically with Node Red integration in HA allowing
+# creation of entities from Node Red flows, could create one to hold state instead of manually 
+# defining one here?
+
+#===================================================================================================
+# Input Boolean  
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/input_boolean/
+#===================================================================================================
+
+
+input_boolean:
+  frontdoor_motion_enabled:
+    name: Front Door - Motion Enabled?
+    icon: mdi:motion-sensor
+  frontdoor_motion_timer_running:
+    name: Outside Garage - Motion Timer Running?
+    icon: mdi:timer-sand

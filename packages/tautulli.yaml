@@ -19,7 +19,8 @@ sensor:
   - platform: tautulli
     api_key: !secret tautulli_api_key
     host: !secret tautulli_host
-    ssl: true
+    port: !secret tautulli_port
+    ssl: false
 
 # We can change host in secrets file to use IP:PORT if URL doens't work:
 # tautulli_host: 192.168.0.10

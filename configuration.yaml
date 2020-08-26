@@ -42,6 +42,8 @@ homeassistant:
   whitelist_external_dirs:
     - /tmp
     - /scratchpad
+  external_url: !secret external_url
+  internal_url: !secret internal_url
 
 #===================================================================================================
 # HTTP ACCESS
@@ -52,7 +54,7 @@ homeassistant:
 #===================================================================================================
 
 http:
-  base_url: !secret base_url
+  #base_url: !secret base_url
   use_x_forwarded_for: true
   trusted_proxies:
     - 172.16.0.0/12
@@ -78,10 +80,10 @@ http:
 frontend:
   themes: !include_dir_merge_named themes
   javascript_version: latest
-  extra_html_url:
-    - /local/hass-fontawesome-solid.html
-    - /local/hass-fontawesome-regular.html
-    - /local/hass-fontawesome-brands.html
+#  extra_html_url:
+#    - /local/hass-fontawesome-solid.html
+#    - /local/hass-fontawesome-regular.html
+#    - /local/hass-fontawesome-brands.html
 
 #***************************************************************************************************
 
@@ -435,6 +437,19 @@ panel_iframe:
 
 
 
+
+#===================================================================================================
+# SHELLYFORHASS
+#---------------------------------------------------------------------------------------------------
+# Enable Shelly device discovery
+# Install ShellyforHASS via HACS (click plus icon in bottom left)
+# - https://github.com/StyraHem/ShellyForHASS
+#===================================================================================================
+
+shelly:
+
+
+
 #===================================================================================================
 # WAKE_ON_LAN
 #---------------------------------------------------------------------------------------------------
@@ -455,6 +470,7 @@ alarm_control_panel:
   - platform: yale_smart_alarm
     username: !secret yale_user
     password: !secret yale_pwd
+
 
 
 
