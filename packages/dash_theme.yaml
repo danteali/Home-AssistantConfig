@@ -31,7 +31,7 @@ input_select:
 automation:
   - id: dashboard_theme_input_select
     alias: 'Set theme startup or select'
-    initial_state: True
+    initial_state: false
     #hide_entity: true
     trigger:
       - platform: homeassistant
@@ -42,10 +42,10 @@ automation:
       - service_template: frontend.set_theme
         data_template:
           name: "{{ states.input_select.dash_theme.state }}"
-  
+
   - id: dashboard_theme_sunset
     alias: 'Set theme sunset'
-    initial_state: True
+    initial_state: false
     #hide_entity: true
     trigger:
       - platform: state
@@ -59,7 +59,7 @@ automation:
   
   - id: dashboard_theme_sunrise
     alias: 'Set theme sunrise'
-    initial_state: True
+    initial_state: false
     #hide_entity: true
     trigger:
       - platform: state

@@ -339,15 +339,27 @@ hacs:
 # Enable logging of sensors/states/etc in InfluxDB
 #===================================================================================================
 
-#influxdb:
-#  host: 192.168.0.10
-#  max_retries: 10
-#  exclude:
-#    entities:
-#       - device_tracker.94652dc81785
+influxdb:
+  host: 192.168.0.10
+  port: 8086
+  max_retries: 10
+  default_measurement: state
+  exclude:
+    domains:
+      - automation
+      - calendar
+      - configurator
+      - device_tracker
+      - group
+      - input_text
+      - input_select
+      - media_player
+      - timer
+      - updater
+      - zigbee2mqtt_networkmap.zone
+#  entity_globs:
 #    domains:
-#      - updater
-#      - group
+#      - binary_sensor.*_occupancy
 
 
 

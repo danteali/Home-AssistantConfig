@@ -18,6 +18,6 @@ input_boolean:
   frontdoor_motion_enabled:
     name: Front Door - Motion Enabled?
     icon: mdi:motion-sensor
-  frontdoor_motion_timer_running:
-    name: Outside Garage - Motion Timer Running?
-    icon: mdi:timer-sand
+#  frontdoor_motion_timer_running:
+#    name: Front Door - Motion Timer Running?
+#    icon: mdi:timer-sand
