@@ -33,6 +33,7 @@ homeassistant:
     - type: trusted_networks
       trusted_networks:
         - 192.168.0.0/24
+        - 192.168.30.0/24
         - 172.16.2.0/24
         - 172.16.1.0/24
       allow_bypass_login: true
@@ -247,7 +248,7 @@ tts:
 #===================================================================================================
 
 webhook:
-  
+
 #===================================================================================================
 # ZONES
 #---------------------------------------------------------------------------------------------------
@@ -471,7 +472,32 @@ shelly:
 wake_on_lan:
 
 
+#===================================================================================================
+# LG WEBOS
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/integrations/webostv/
+# Enable integration with LG TV
+# Should bring up notification after first enabling to allow configuration. Pairing info will be 
+# saved in webostv.conf
+#===================================================================================================
+  
+webostv:
+  - host: 192.168.0.51
+    name: Living Room TV Wifi
+    turn_on_action:
+      service: wake_on_lan.send_magic_packet
+      data:
+        mac: 58-FD-B1-6B-F1-29
+        broadcast_address: 192.168.30.255
+  - host: 192.168.30.10
+    name: Living Room TV Wired
+    turn_on_action:
+      service: wake_on_lan.send_magic_packet
+      data:
+        mac: 58-FD-B1-6B-F1-29
+        broadcast_address: 192.168.30.255
 
+        
 #===================================================================================================
 # YALE ALARM CONTROL PANEL
 #---------------------------------------------------------------------------------------------------

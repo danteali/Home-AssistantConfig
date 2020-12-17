@@ -3,11 +3,7 @@
 ####################################################################################################
 
 # We want to set up the ability to...
-# 1. Turn off the PC/HTPC safely via 'Sleep on LAN' app (http://www.ireksoftware.com/SleepOnLan/)
-#    e.g. curl -X POST http://192.168.0.20:7760/test
-#         Options: test, suspend, hibernate, logoff, poweroff, forcepoweroff, loc, reboot
-# 2. Wake PC/HTPC via WOL magic packet
-# 3. Turn Off/On TV Power (via Ikea Tradfri outlet as defined in zigbee2mqtt_devices.yaml)
+# 1. Turn on/off TV
 # 4. Should be voice enabled via Alexa
 
 # Since HTPC is on wifi (for now) we will need to:
@@ -28,19 +24,7 @@
 
 # Get current power states
 
-# For some reason kept getting config error if we tried configuring these here.
-# See ../binary_sensor/network_devices.yaml
-
-#binary_sensor:
-#  - platform: ping
-#    host: 192.168.0.10
-#    name: NAS
-#  - platform: ping
-#    host: 192.168.0.20
-#    name: Desktop
-#  - platform: ping
-#    host: 192.168.0.23
-#    name: HTPC
+# See ikd script in 'disabled'
     
 
 #===================================================================================================
@@ -58,12 +42,7 @@ shell_command:
   sol_desktop_poweroff: 'curl http://192.168.0.20:7760/poweroff'
   sol_desktop_forcepoweroff: 'curl http://192.168.0.20:7760/forcepoweroff'
   sol_desktop_reboot: 'curl http://192.168.0.20:7760/reboot'
-  wol_htpc: echo -e $(echo $(printf 'f%.0s' {1..12}; printf "$(echo "24:05:0f:d8:37:48" | sed 's/://g')%.0s" {1..16}) | sed -e 's/../\\x&/g') | nc -w1 -u 192.168.0.23 4000
-  sol_htpc_test: 'curl http://192.168.0.24:7760/test'
-  sol_htpc_suspend: 'curl http://192.168.0.24:7760/suspend'
-  sol_htpc_poweroff: 'curl http://192.168.0.24:7760/poweroff'
-  sol_htpc_forcepoweroff: 'curl http://192.168.0.24:7760/forcepoweroff'
-  sol_htpc_reboot: 'curl http://192.168.0.24:7760/reboot'
+  wol_tv: echo -e $(echo $(printf 'f%.0s' {1..12}; printf "$(echo "58:FD:B1:6B:F1:29" | sed 's/://g')%.0s" {1..16}) | sed -e 's/../\\x&/g') | nc -w1 -u 192.168.30.254 4000
 
 
 #===================================================================================================
@@ -86,74 +65,16 @@ input_select:
     initial: None
     icon: mdi:desktop-tower
 
-  power_htpc:
-    name: HTPC Power Options
+  power_tv:
+    name: TV Power
     options:
       - None
-      - Wake On LAN
+      - Wake
       - Suspend
-      - Poweroff
-      - Force Poweroff
-      - Reboot
-      - Test
     initial: None
     icon: mdi:television
 
 
-#===================================================================================================
-# Command Line Switch
-#---------------------------------------------------------------------------------------------------
-# https://www.home-assistant.io/components/switch.command_line/
-#===================================================================================================
-
-# We're going to use automations based on input_select choices but we could also do a simple on/off
-# switch with command line switches e.g.
-
-#switch:
-#  platform: command_line
-#  switches:
-#    htpc_on_off:
-#      command_on: echo -e $(echo $(printf 'f%.0s' {1..12}; printf "$(echo "24:05:0f:d8:37:48" | sed 's/://g')%.0s" {1..16}) | sed -e 's/../\\x&/g') | nc -w1 -u 192.168.0.23 4000
-#      command_off: "curl http://192.168.0.23:7760/suspend"
-#      command_state: "curl -s http://192.168.0.23:7760/test | grep System | awk '{ print $1 }'"
-#      value_template: '{{ value == "System" }}'
-#      friendly_name: HTPC Power
-
-
-#===================================================================================================
-# Automation
-#---------------------------------------------------------------------------------------------------
-# https://www.home-assistant.io/components/automation/
-# https://www.home-assistant.io/docs/automation/examples/
-#===================================================================================================
-
-# Will automate in node red but could use something similar to below if needed...
-#automation:
-#  - alias: htpc_reboot
-#    trigger:
-#      platform: state
-#      entity_id: input_select.power_htpc
-#      to: "Reboot"
-#    action:
-#      - service: shell_command.sol_htpc_reboot   
-#      - service: input_select.select_option
-#        data:
-#          entity_id: input_select.power_htpc
-#          option: None
-#      Plus extra actions to turn off TV after waiting for HTPC connection state to change.
-
-#===================================================================================================
-# Groups
-#---------------------------------------------------------------------------------------------------
-# https://www.home-assistant.io/components/group/
-# Icons: https://materialdesignicons.com/
-#
-# If not using custom Lovelace, groups can be shown in the main dashboard or tabs at the top of the
-# overview screen (set 'view: true').
-# Groups with actions associated (e.g. switches) will have a group-wide switch at the top by default
-# unless we set 'control: hidden'.
-# Groups can be referenced as part of other groups too.
-#===================================================================================================
 
 group:
   computer_tv_controls:
@@ -161,11 +82,10 @@ group:
     #control: hidden
     icon: mdi:desktop-tower-monitor
     entities:
-      - switch.z2m_ikea_outlet_htpc_switch
-      - binary_sensor.htpc
+      - binary_sensor.tv
       - binary_sensor.desktop
       - binary_sensor.nas
       - input_select.power_desktop
-      - input_select.power_htpc
-      - switch.wol_htpc
+      - input_select.power_tv
+      - switch.wol_tv
       - switch.wol_desktop

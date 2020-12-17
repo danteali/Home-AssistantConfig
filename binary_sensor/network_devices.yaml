@@ -19,11 +19,22 @@
     scan_interval: 15
   
   - platform: ping
-    host: 192.168.0.23
-    name: HTPC
+    host: 192.168.30.10
+    name: TV
     count: 2
     scan_interval: 15
-    
+
+  - platform: ping
+    host: 192.168.0.51
+    name: TV - Wifi
+    count: 2
+    scan_interval: 15
+
+#  - platform: ping
+#    host: 192.168.0.23
+#    name: HTPC
+#    count: 2
+#    scan_interval: 15
 
 #===================================================================================================
 # WAN test script
