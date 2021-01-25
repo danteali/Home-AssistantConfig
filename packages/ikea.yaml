@@ -16,7 +16,7 @@ automation:
 # Turn on living room lights at sunset
   - id: 'living_room_lights_on_sunset'
     alias: 'Living Room Lights On at Sunset'
-    initial_state: True
+    initial_state: false
     trigger:
       - platform: sun
         event: sunset
@@ -33,7 +33,7 @@ automation:
 #Turn off living room lights at night in case we forget
   - id: 'living_room_lights_off_night'
     alias: 'Living Room Lights Off at Night'
-    initial_state: True
+    initial_state: false
     trigger:
       platform: time
       at: "00:15:00"

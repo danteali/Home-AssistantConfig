@@ -1,24 +1,3 @@
-####################################################################################################
-# Home Assistant Customization
-####################################################################################################
-
-#---------------------------------------------------------------------------------------------------
-# Icons: https://materialdesignicons.com/
-#
-# === Hidden ===
-# Set 'hidden: true' to hide element from dashboard
-#
-# === Tabs ===
-# If not using custom Lovelace, groups can be shown in the main dashboard or tabs at the top of the
-# overview screen (set 'view: true').
-#
-# ==== Group Switch ====
-# Groups with actions associated (e.g. switches) will have a group-wide switch at the top by default
-# unless we set 'control: hidden'.
-#
-# Groups can be referenced as part of other groups too.
-#---------------------------------------------------------------------------------------------------
-
 group.weather_current:
   order: 1
 group.weather_forecast:
@@ -133,8 +112,6 @@ device_tracker.win_4s81vuhb27j:
   friendly_name: Laptop - Matebook
 switch.glances:
   icon: mdi:chart-line-variant
-#switch.plex:
-#  icon: mdi:plex
 script.restart_ha:
   icon: mdi:home
 sensor.ikea5button_action:
@@ -149,3 +126,5 @@ group.calendar:
   control: hidden
 input_boolean.office_lights_motion_enabled:
   hidden: true
+device_tracker.0c_96_e6_53_3e_a6:
+  friendly_name: Brother DCPL3510CDW
