@@ -4,14 +4,13 @@
 # https://www.home-assistant.io/components/device_tracker/
 #===================================================================================================
 
-# https://www.home-assistant.io/components/nmap_tracker/
+# https://www.home-assistant.io/integrations/unifi_direct/
 
-  - platform: nmap_tracker
-    hosts: 192.168.0.0/24
-    scan_options: " -Pn -F -host-timeout 5s "
-    home_interval: 5
-    consider_home: 90
-    exclude:
-     - 192.168.0.10
+device_tracker:
+  - platform: unifi_direct
+    host: 192.168.0.2
+    username: !secret unifi_user
+    password: !secret unifi_pwd
+    consider_home: 120
     new_device_defaults:
       track_new_devices: false

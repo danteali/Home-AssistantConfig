@@ -312,7 +312,9 @@ zone:
 # https://www.home-assistant.io/components/google_assistant/
 #===================================================================================================
 
-google_assistant: !include google_assistant.yaml
+#google_assistant: !include google_assistant.yaml
+
+# Moved config to: packages/google_assistant.yaml
 
 
 
@@ -387,15 +389,10 @@ mqtt:
 #===================================================================================================
 # NEST
 #---------------------------------------------------------------------------------------------------
-# Create a Nest dev account and add details below to allow control and monitoring of Nest devices
+# https://www.home-assistant.io/components/nest/
 #===================================================================================================
 
-#nest:
-#  client_id: !secret nest_id
-#  client_secret: !secret nest_secret
-#climate:
-#  platform: nest
-
+# See packages/nest.yaml
 
 
 #===================================================================================================

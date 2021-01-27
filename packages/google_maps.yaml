@@ -7,10 +7,12 @@
 # https://www.home-assistant.io/components/unifi/#presence-detection
 # https://www.home-assistant.io/components/google_maps/
 
-# Update 15/08/19: Password no longer used. Instead use python tool 'mapscookiegettercl' on a 
-# different computer to grab the cookies and copy them to configuration directory and rename as
+# Update 15/08/19: Password no longer used. Instead use 'getcookies.txt' extension in chrome
+# to pull google cookies after logging into Maps with the mcguinnesshomeassistant account.
+# Copy them to configuration directory and rename as:
 # .google_maps_location_sharing.cookies.mcguinnesshomeassistant_gmail_com
 
+device_tracker:
   - platform: google_maps
     username: !secret google_maps_user
     #password: !secret google_maps_pwd
