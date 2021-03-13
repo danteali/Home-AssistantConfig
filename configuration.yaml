@@ -46,6 +46,9 @@ homeassistant:
   external_url: !secret external_url
   internal_url: !secret internal_url
 
+# Enable some 'default' features - https://www.home-assistant.io/integrations/default_config/
+default_config:
+
 #===================================================================================================
 # HTTP ACCESS
 #---------------------------------------------------------------------------------------------------
@@ -312,9 +315,7 @@ zone:
 # https://www.home-assistant.io/components/google_assistant/
 #===================================================================================================
 
-#google_assistant: !include google_assistant.yaml
-
-# Moved config to: packages/google_assistant.yaml
+google_assistant: !include google_assistant.yaml
 
 
 

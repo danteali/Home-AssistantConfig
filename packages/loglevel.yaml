@@ -78,11 +78,11 @@ automation:
 # ends up in it's own card with a switch at the top. So adding to group so that it's not in a card
 # with a switch.
 
-group:
-  log_level:
-    name: Log Level
-    #view: false
-    #control: hidden
-    icon: mdi:bug-outline
-    entities:
-      - input_select.log_level
+#group:
+#  log_level:
+#    name: Log Level
+#    #view: false
+#    #control: hidden
+#    icon: mdi:bug-outline
+#    entities:
+#      - input_select.log_level

@@ -31,12 +31,23 @@ group:
     #control: hidden
     icon: mdi:cellphone
     entities:
-      - device_tracker.ryan_wifi
+      #- device_tracker.ryan_wifi
+      #- device_tracker.jenna_wifi
+      # Jenna - from known_devices.yaml static config from Google Maps
+      - device_tracker.google_maps_107993763956471805595
+      # Jen's phone - from known_devices.yaml static config from unifi.yaml integration
+      - device_tracker.kd_jenna_oneplus6t1
+      # Ryan's life360 on phone - from known_devices.yaml static config from life360
       - device_tracker.life360_ryan
-      - device_tracker.jenna_wifi
+      # Ryan's phone - from known_devices.yaml static config from unifi.yaml integration
+      - device_tracker.kd_ryan_oneplus5t
+      # Ryan's phone - Unifi GUI integration
+      - device_tracker.ryan_oneplus5t
+      # Jenna's phone - Unifi GUI integration
+      - device_tracker.jenna_oneplus6t1
       - binary_sensor.home_occupied_bayesian
       - binary_sensor.ryan_home_bayesian
-      - binary_sensor.fitzallen_place_away
+      - binary_sensor.jenna_home_bayesian
 
 
   people_status:
@@ -206,8 +217,10 @@ automation:
 #        message: "Honey, I'm home!"
 
 # Turn off when someone gets home...
+# Will transfer to Node Red.
   - id: zone_home_leave_notify
     alias: "Notify on leaving home"
+    initial_state: false
     trigger:
       platform: zone
       entity_id: device_tracker.life360_ryan
@@ -247,64 +260,90 @@ automation:
 # Notice that the input_booleab.home_guest will overide all the others based on the defined 
 # probabilities below
 
+#  prob_given_true: 0.9   # 90% chance that if state is 'home' then person is at home
+#  prob_given_false: 0.2  # 20% chance that if state is not 'home' then person is still at home
+      
 
 binary_sensor:
+  - platform: bayesian
+    prior: 0.8   # At any point in time how likely is this event to occur?
+    name: 'Ryan Home - Bayesian'
+    probability_threshold: 0.9   # The probability at which the sensor should trigger to on.
+    observations:
+      - entity_id: 'device_tracker.life360_ryan'
+        # Ryan's life360 on phone - from known_devices.yaml static config from life360
+        prob_given_true: 0.95
+        prob_given_false: 0.2
+        platform: 'state'
+        to_state: 'home'
+      - entity_id: 'device_tracker.ryan_oneplus5t'
+        # Ryan's phone - Unifi GUI integration
+        prob_given_true: 0.9
+        prob_given_false: 0.1
+        platform: 'state'
+        to_state: 'home'
+
+  - platform: bayesian
+    prior: 0.7   # At any point in time how likely is this event to occur?
+    name: 'Jenna Home - Bayesian'
+    probability_threshold: 0.9   # The probability at which the sensor should trigger to on.
+    observations:
+      - entity_id: 'device_tracker.google_maps_107993763956471805595'
+        # Jenna - from known_devices.yaml static config from Google Maps
+        prob_given_true: 0.9
+        prob_given_false: 0.2
+        platform: 'state'
+        to_state: 'home'
+      - entity_id: 'device_tracker.jenna_oneplus6t1'
+        # Jenna's phone - Unifi GUI integration
+        prob_given_true: 0.9
+        prob_given_false: 0.1
+        platform: 'state'
+        to_state: 'home'
+
+
+
   - platform: bayesian
     prior: 0.65   # At any point in time how likely is this event to occur?
     name: 'Home Occupied - Bayesian'
     probability_threshold: 0.9   # The probability at which the sensor should trigger to on.
     observations:
-      - entity_id: 'device_tracker.jenna_wifi'
-        prob_given_true: 0.9   # 90% chance that if state is 'home' then person is at home
-        prob_given_false: 0.2  # 20% chance that if state is not 'home' then person is still at home
-        platform: 'state'
-        to_state: 'home'
-      - entity_id: 'device_tracker.life360_ryan'
-        prob_given_true: 0.75
-        prob_given_false: 0.3
-        platform: 'state'
-        to_state: 'home'
-      - entity_id: 'device_tracker.ryan_wifi'
+      - entity_id: 'binary_sensor.ryan_home_bayesian'
+        # From baysian above
         prob_given_true: 0.9
-        prob_given_false: 0.2
+        prob_given_false: 0.1
         platform: 'state'
-        to_state: 'home'
-      - entity_id: 'binary_sensor.fitzallen_place_away'
+        to_state: 'on'
+      - entity_id: 'binary_sensor.jenna_home_bayesian'
+        # From baysian above
         prob_given_true: 0.9
-        prob_given_false: 0.2
+        prob_given_false: 0.1
         platform: 'state'
-        to_state: 'off'
+        to_state: 'on'
       - entity_id: 'input_boolean.home_guest'
         prob_given_true: 1
         prob_given_false: 0
         platform: 'state'
         to_state: 'on'
+      #- entity_id: 'binary_sensor.fitzallen_place_away'
+      #  # Nest home/away status - no longer exists since Google-owned config setup
+      #  prob_given_true: 0.9
+      #  prob_given_false: 0.2
+      #  platform: 'state'
+      #  to_state: 'off'      
+      #- entity_id: 'device_tracker.jenna_wifi'
+      #  prob_given_true: 0.9   # 90% chance that if state is 'home' then person is at home
+      #  prob_given_false: 0.2  # 20% chance that if state is not 'home' then person is still at home
+      #  platform: 'state'
+      #  to_state: 'home'
+      #- entity_id: 'device_tracker.ryan_wifi'
+      #  prob_given_true: 0.9
+      #  prob_given_false: 0.2
+      #  platform: 'state'
+      #  to_state: 'home'      
       #- entity_id: 'binary_sensor.motion'
       #  prob_given_true: 0.7
       #  prob_given_false: 0.5
       #  platform: 'state'
-      #- entity_id: 'switch.macbook_power'
-      #  prob_given_true: 0.1
-      #  platform: 'state'
-      #  to_state: 'on'
-      #- entity_id: 'input_boolean.house_idle'
-      #  prob_given_true: 0.6
-      #  platform: 'state'
-      #  to_state: 'on'
 
 
-  - platform: bayesian
-    prior: 0.5   # At any point in time how likely is this event to occur?
-    name: 'Ryan Home - Bayesian'
-    probability_threshold: 0.9   # The probability at which the sensor should trigger to on.
-    observations:
-      - entity_id: 'device_tracker.life360_ryan'
-        prob_given_true: 0.75
-        prob_given_false: 0.3
-        platform: 'state'
-        to_state: 'home'
-      - entity_id: 'device_tracker.ryan_wifi'
-        prob_given_true: 0.9
-        prob_given_false: 0.2
-        platform: 'state'
-        to_state: 'home'

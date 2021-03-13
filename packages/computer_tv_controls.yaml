@@ -76,16 +76,16 @@ input_select:
 
 
 
-group:
-  computer_tv_controls:
-    name: Computer/TV Power
-    #control: hidden
-    icon: mdi:desktop-tower-monitor
-    entities:
-      - binary_sensor.tv
-      - binary_sensor.desktop
-      - binary_sensor.nas
-      - input_select.power_desktop
-      - input_select.power_tv
-      - switch.wol_tv
-      - switch.wol_desktop
+#group:
+#  computer_tv_controls:
+#    name: Computer/TV Power
+#    #control: hidden
+#    icon: mdi:desktop-tower-monitor
+#    entities:
+#      - binary_sensor.tv
+#      - binary_sensor.desktop
+#      - binary_sensor.nas
+#      - input_select.power_desktop
+#      - input_select.power_tv
+#      - switch.wol_tv
+#      - switch.wol_desktop

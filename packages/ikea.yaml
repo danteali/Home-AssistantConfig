@@ -12,40 +12,41 @@
 ## Automation  ##
 ##############################################################
 
-automation:
-# Turn on living room lights at sunset
-  - id: 'living_room_lights_on_sunset'
-    alias: 'Living Room Lights On at Sunset'
-    initial_state: false
-    trigger:
-      - platform: sun
-        event: sunset
-        offset: '-00:30:00'
-    action:
-      - service: light.turn_on
-        data:
-          entity_id: light.living_room_big_lamp
-          #transition: 10
-      - service: switch.turn_on
-        data:
-          entity_id: switch.living_room_small_lamp
-
-#Turn off living room lights at night in case we forget
-  - id: 'living_room_lights_off_night'
-    alias: 'Living Room Lights Off at Night'
-    initial_state: false
-    trigger:
-      platform: time
-      at: "00:15:00"
-    action:
-      - service: light.turn_off
-        data:
-          entity_id: light.living_room_big_lamp
-          #transition: 10
-      - service: switch.turn_off
-        data:
-          entity_id: switch.living_room_small_lamp
-
+# Moved automation to Node Red
+#automation:
+## Turn on living room lights at sunset
+#  - id: 'living_room_lights_on_sunset'
+#    alias: 'Living Room Lights On at Sunset'
+#    initial_state: false
+#    trigger:
+#      - platform: sun
+#        event: sunset
+#        offset: '-00:30:00'
+#    action:
+#      - service: light.turn_on
+#        data:
+#          entity_id: light.living_room_big_lamp
+#          #transition: 10
+#      - service: switch.turn_on
+#        data:
+#          entity_id: switch.living_room_small_lamp
+#
+##Turn off living room lights at night in case we forget
+#  - id: 'living_room_lights_off_night'
+#    alias: 'Living Room Lights Off at Night'
+#    initial_state: false
+#    trigger:
+#      platform: time
+#      at: "00:15:00"
+#    action:
+#      - service: light.turn_off
+#        data:
+#          entity_id: light.living_room_big_lamp
+#          #transition: 10
+#      - service: switch.turn_off
+#        data:
+#          entity_id: switch.living_room_small_lamp
+#
 ### Dash button discontinued so no longer using
 #  - id: 'living_rm_lights_amazon_dash'
 #    alias: Toggle Living Room Lights
@@ -75,41 +76,46 @@ automation:
 # Groups can be referenced as part of other groups too.
 #===================================================================================================
 
-group:
-  ikea_plugs:
-    name: IKEA Plugs
-    #view: false
-    #control: hidden
-    icon: mdi:power-socket-uk
-    entities:
-      - switch.living_room_small_lamp
-      - switch.james_s_fairy_lights
-      - switch.chloe_s_fairy_lights
-  
-  ikea_switch_batteries:
-    name: IKEA Switch Batteries
-    #view: false
-    #control: hidden
-    icon: mdi:battery-charging-wireless-70
-    entities:
-      - sensor.living_room_remote
-      - sensor.movie_room_dimmer
-      - sensor.wireless_dimmer_1
-      - sensor.wireless_dimmer_2
-  
-  lights_living_room:
-    name: Living Room Lights
-    #view: false
-    icon: mdi:lightbulb
-    entities:
-      - switch.living_room_small_lamp
-      - light.living_room_big_lamp
-  
-  lights_movie_room:
-    name: Movie Room Lights
-    #view: false
-    icon: mdi:lightbulb
-    entities:
-      - light.movie_room_left_2
-      - light.movie_room_right_2
+# Typically want to get rid of groups since no advantage when using Lovelace UI.
+# However having a light group for movie room is useful for controlling brightness together.
+# Although now moved to z2m control so group setup in zigbee2mqtt_devices.yaml
+
+#group:
+#  lights_movie_room:
+#    name: Movie Room Lights
+#    #view: false
+#    icon: mdi:lightbulb
+#    entities:
+#      - light.movie_room_left_2
+#      - light.movie_room_right_2
+#
+#  ikea_plugs:
+#    name: IKEA Plugs
+#    #view: false
+#    #control: hidden
+#    icon: mdi:power-socket-uk
+#    entities:
+#      - switch.living_room_small_lamp
+#      - switch.james_s_fairy_lights
+#      - switch.chloe_s_fairy_lights
+  #
+#  ikea_switch_batteries:
+#    name: IKEA Switch Batteries
+#    #view: false
+#    #control: hidden
+#    icon: mdi:battery-charging-wireless-70
+#    entities:
+#      - sensor.living_room_remote
+#      - sensor.movie_room_dimmer
+#      - sensor.wireless_dimmer_1
+#      - sensor.wireless_dimmer_2
+  #
+#  lights_living_room:
+#    name: Living Room Lights
+#    #view: false
+#    icon: mdi:lightbulb
+#    entities:
+#      - switch.living_room_small_lamp
+#      - light.living_room_big_lamp
+#
 
