@@ -37,18 +37,19 @@ group:
       - device_tracker.google_maps_107993763956471805595
       # Jen's phone - from known_devices.yaml static config from unifi.yaml integration
       - device_tracker.kd_jenna_oneplus6t1
+      # Jenna's phone - Unifi GUI integration
+      - device_tracker.jenna_oneplus6t1
       # Ryan's life360 on phone - from known_devices.yaml static config from life360
       - device_tracker.life360_ryan
       # Ryan's phone - from known_devices.yaml static config from unifi.yaml integration
-      - device_tracker.kd_ryan_oneplus5t
-      # Ryan's phone - Unifi GUI integration
-      - device_tracker.ryan_oneplus5t
-      # Jenna's phone - Unifi GUI integration
-      - device_tracker.jenna_oneplus6t1
+      - device_tracker.kd_oneplus8t
+      # Ryan's phone - Unifi GUI integration - waiting for static MAC to be discovered
+      #- device_tracker.ryan_oneplus5t
+      # Ryan's phone - Home assistant app
+      - device_tracker.oneplus_8t_app
       - binary_sensor.home_occupied_bayesian
       - binary_sensor.ryan_home_bayesian
       - binary_sensor.jenna_home_bayesian
-
 
   people_status:
     name: People - Status
@@ -276,12 +277,19 @@ binary_sensor:
         prob_given_false: 0.2
         platform: 'state'
         to_state: 'home'
-      - entity_id: 'device_tracker.ryan_oneplus5t'
-        # Ryan's phone - Unifi GUI integration
+      - entity_id: 'device_tracker.oneplus_8t_app'
+        # Ryan's phone - Home Assistant app
         prob_given_true: 0.9
         prob_given_false: 0.1
         platform: 'state'
         to_state: 'home'
+      #- entity_id: 'device_tracker.oneplus_8t'
+        # Ryan's phone - Unifi GUI integration - waiting for device static MAC discovery
+        # May swap/include unifi discovered device later.
+      #  prob_given_true: 0.9
+      #  prob_given_false: 0.1
+      #  platform: 'state'
+      #  to_state: 'home'
 
   - platform: bayesian
     prior: 0.7   # At any point in time how likely is this event to occur?

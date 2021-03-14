@@ -29,3 +29,14 @@ proximity:
       - device_tracker.life360_ryan
     tolerance: 50
     unit_of_measurement: m
+
+  # Testing the HA app's proximity sensing vs others
+  test_ryan_haapp:
+    zone: home
+    #ignored_zones:
+    #  - work
+    devices:
+      # Ryan's life360 on phone - from known_devices.yaml static config from life360
+      - device_tracker.oneplus_8t_app
+    tolerance: 50
+    unit_of_measurement: m
