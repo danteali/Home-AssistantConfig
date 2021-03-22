@@ -263,7 +263,7 @@ zone:
   - name: Home
     latitude: !secret home_lat
     longitude: !secret home_long
-    radius: 20
+    radius: 200
     icon: mdi:account-multiple
 
 
