@@ -273,40 +273,6 @@ zone:
 
 
 
-####################################################################################################
-# GROUPS
-####################################################################################################
-# Can't create groups in GUI yet and we want some groups to control multiple entities in one go.
-# We could just create cards with multiple entities in the GUI but we can't expose these to 
-# Alexa or Google Assistant as one 'entity'
-
-group:
-  living_room_lights:
-    name: Living Room Lights
-    entities:
-      - light.ikea_living_room_big_lamp
-      - switch.ikea_living_room_small_lamp
-  front_house_lights:
-    name: Front House Lights
-    entities:
-      - switch.tasmo_shelly1pm_frontdoor
-      - switch.tasmo_shelly1_garage_outside
-
-#===================================================================================================
-# Light Groups
-#---------------------------------------------------------------------------------------------------
-# Note that these are different from 'normal' groups
-# https://www.home-assistant.io/integrations/light.group/
-#===================================================================================================
-
-light:
-  - platform: group
-    name: Movie Room Lights
-    entities:
-      - light.z2m_ikea_gu10_movierm_left
-      - light.z2m_ikea_gu10_movierm_right
-
-
 
 
 

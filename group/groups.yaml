@@ -1,0 +1,21 @@
+#===================================================================================================
+# Groups
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/integrations/group/
+#===================================================================================================
+
+# Can't create groups in GUI yet and we want some groups to control multiple entities in one go.
+# We could just create cards with multiple entities in the GUI but we can't expose these to 
+# Alexa or Google Assistant as one 'entity'
+
+  living_room_lights:
+    name: Living Room Lights
+    entities:
+      - light.ikea_living_room_big_lamp
+      - switch.ikea_living_room_small_lamp
+  front_house_lights:
+    name: Front House Lights
+    entities:
+      - switch.tasmo_shelly1pm_frontdoor
+      - switch.tasmo_shelly1_garage_outside
+
