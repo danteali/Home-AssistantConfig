@@ -7,6 +7,8 @@
 # creation of entities from Node Red flows, could create one to hold state instead of manually 
 # defining one here?
 
+# See configuration.yaml for group definition for these devices.
+
 #===================================================================================================
 # Input Boolean  
 #---------------------------------------------------------------------------------------------------
