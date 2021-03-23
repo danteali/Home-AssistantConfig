@@ -3,6 +3,7 @@
 ####################################################################################################
 
 # Uses custom component to add media player entries for all Amazon Echo devices.
+# Component added via HACS
 
 # Source: 
 # https://github.com/keatontaylor/alexa_media_player/wiki/Installation-and-Configuration
@@ -22,6 +23,14 @@
 # Component
 #===================================================================================================
 
+# This will create media_players for all echo devices. And notify services for all devices.
+# There will also be a media_player.everywhere, and notify.alexa_media_everywhere.
+
+# Inclusion/exclusion names are the friendly_names defined for each device. 
+# The filters require a case-sensitive name and quotes if including spaces. You can discover the
+# name by looking at the developer-tools/state in Home Assistant and reviewing the friendly_name
+# attribute. You can search for all media_plays at once in dialogue below the drop down boxes.
+  
 alexa_media:
   accounts:
     - email: !secret alexa_user
@@ -32,14 +41,79 @@ alexa_media:
         - "Ryan's Alexa Apps"
         - "Ryan's Alexa Web Interface"
         - "This Device"
-      #scan_interval: 30
+        - "Chloe's tablet"
+        - "Jenna's Fitbit Sense™️"
+        - "Bedroom do not disturb switch"
+        - "Everywhere do not disturb switch"
+        - "Fire Stick do not disturb switch"
+        - "Games Room do not disturb switch"
+        - "James do not disturb switch"
+        - "Jenna's Fitbit Sense™️ do not disturb switch"
+        - "Study do not disturb switch"
+        - "Kitchen do not disturb switch"
+        - "Lounge do not disturb switch"
+        - "Music Room do not disturb switch"
+        - "TV - Alexa do not disturb switch"
+        - "Chloe do not disturb switch"
+        - "Chloe's tablet do not disturb switch"
+        - "Everywhere repeat switch"
+        - "Games Room repeat switch"
+        - "James repeat switch"
+        - "Jenna's Fitbit Sense™️ repeat switch"
+        - "Study repeat switch"
+        - "Kitchen repeat switch"
+        - "Lounge repeat switch"
+        - "Music Room repeat switch"
+        - "TV - Alexa repeat switch"
+        - "Bedroom repeat switch"
+        - "Chloe repeat switch"
+        - "Everywhere shuffle switch"
+        - "Games Room shuffle switch"
+        - "James shuffle switch"
+        - "Jenna's Fitbit Sense™️ shuffle switch"
+        - "Study shuffle switch"
+        - "Kitchen shuffle switch"
+        - "Lounge shuffle switch"
+        - "Music Room shuffle switch"
+        - "TV - Alexa shuffle switch"
+        - "Bedroom shuffle switch"
+        - "Chloe shuffle switch"
+        - "Bedroom next Alarm"
+        - "Chloe's tablet next Alarm"
+        - "Fire Stick next Alarm"
+        - "Games Room next Alarm"
+        - "James next Alarm"
+        - "Kitchen next Alarm"
+        - "Lounge next Alarm"
+        - "Music Room next Alarm"
+        - "Study next Alarm"
+        - "Bedroom next Timer"
+        - "Chloe next Timer"
+        - "Chloe's tablet next Timer"
+        - "Fire Stick next Timer"
+        - "Games Room next Timer"
+        - "James next Timer"
+        - "Kitchen next Timer"
+        - "Lounge next Timer"
+        - "Music Room next Timer"
+        - "Study next Timer"
+        - "Bedroom next Reminder"
+        - "Chloe's tablet next Reminder"
+        - "Fire Stick next Reminder"
+        - "Games Room next Reminder"
+        - "James next Reminder"
+        - "Kitchen next Reminder"
+        - "Lounge next Reminder"
+        - "Music Room next Reminder"
+        - "Study next Reminder"
+      scan_interval: 300
       #include_devices:
       #  - "Master Bedroom"
       #  - Stairs
 
 
-  # This will create media_players for all echo devices. And notify services for all devices.
-  # There will also be a media_player.everywhere, and notify.alexa_media_everywhere.
+
+  
   # Music can be started manually in the Dev->Services screen with:
   #   Service: media_player.play_media
   #   {

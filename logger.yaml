@@ -14,7 +14,14 @@ logs:
   homeassistant.components.websocket_api.http.connection: warn
   haffmpeg.core: warn
   alexapy.alexawebsocket: warn
-  
+
+# If you ever want to determine if a device is being filtered (e.g., you use include_devices and
+# don't see a new entity), you can discover what is being excluded by enabling debug logging on
+# alexa_media.helpers and searching for the Excluding device: line.
+# https://github.com/custom-components/alexa_media_player/wiki/Configuration#configuring-inclusions-or-exclusions
+#  homeassistant.components.alexa_media.helpers: debug
+#  alexa_media.helpers: debug
+
 #  homeassistant.components.automation: info
 #  homeassistant.components.input_select: debug
 #  homeassistant.core: warn

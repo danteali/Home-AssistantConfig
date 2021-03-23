@@ -6,7 +6,16 @@
 
  #purge_interval: 1
   purge_keep_days: 2
+  commit_interval: 5
   exclude:
     domains:
       - updater
-      - automation
+      - calendar
+      - camera
+      - remote
+      - scene
+      - script
+      - sun
+      - weather
+    #entity_globs:
+    #  - media_player.plex*
