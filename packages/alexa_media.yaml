@@ -31,6 +31,9 @@
 # name by looking at the developer-tools/state in Home Assistant and reviewing the friendly_name
 # attribute. You can search for all media_plays at once in dialogue below the drop down boxes.
   
+# Apr 21: After adding exclusions below, most still appear. However Chloe's Alexa device has
+#         disappeared. Commenting the Chloe related exclusions to see if it comes back.
+
 alexa_media:
   accounts:
     - email: !secret alexa_user
@@ -54,7 +57,7 @@ alexa_media:
         - "Lounge do not disturb switch"
         - "Music Room do not disturb switch"
         - "TV - Alexa do not disturb switch"
-        - "Chloe do not disturb switch"
+        #- "Chloe do not disturb switch"
         - "Chloe's tablet do not disturb switch"
         - "Everywhere repeat switch"
         - "Games Room repeat switch"
@@ -66,7 +69,7 @@ alexa_media:
         - "Music Room repeat switch"
         - "TV - Alexa repeat switch"
         - "Bedroom repeat switch"
-        - "Chloe repeat switch"
+        #- "Chloe repeat switch"
         - "Everywhere shuffle switch"
         - "Games Room shuffle switch"
         - "James shuffle switch"
@@ -77,7 +80,7 @@ alexa_media:
         - "Music Room shuffle switch"
         - "TV - Alexa shuffle switch"
         - "Bedroom shuffle switch"
-        - "Chloe shuffle switch"
+        #- "Chloe shuffle switch"
         - "Bedroom next Alarm"
         - "Chloe's tablet next Alarm"
         - "Fire Stick next Alarm"
@@ -88,7 +91,7 @@ alexa_media:
         - "Music Room next Alarm"
         - "Study next Alarm"
         - "Bedroom next Timer"
-        - "Chloe next Timer"
+        #- "Chloe next Timer"
         - "Chloe's tablet next Timer"
         - "Fire Stick next Timer"
         - "Games Room next Timer"

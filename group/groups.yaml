@@ -13,9 +13,11 @@
     entities:
       - light.ikea_living_room_big_lamp
       - switch.ikea_living_room_small_lamp
-  front_house_lights:
-    name: Front House Lights
-    entities:
-      - switch.tasmo_shelly1pm_frontdoor
-      - switch.tasmo_shelly1_garage_outside
 
+# See packages/lights_front_house.yaml
+#
+#  front_house_lights:
+#    name: Front House Lights
+#    entities:
+#      - switch.tasmo_shelly1pm_frontdoor
+#      - switch.tasmo_shelly1_garage_outside

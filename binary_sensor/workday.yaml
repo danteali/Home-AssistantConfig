@@ -4,10 +4,8 @@
 # https://www.home-assistant.io/integrations/workday/
 #===================================================================================================
 
-binary_sensor:
   - platform: workday
     country: UK
-    province: Scotland
     workdays: [mon, tue, wed, thu, fri]
     excludes: [sat, sun, holiday]
 

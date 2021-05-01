@@ -2,12 +2,10 @@
 # Package - Outside Garage
 ####################################################################################################
 
-# Just need a 'placewholder' switch to hold the status of whether the front door motion detection
-# is enabled or not. Could maybe now be done dynamically with Node Red integration in HA allowing
-# creation of entities from Node Red flows, could create one to hold state instead of manually 
-# defining one here?
+# Need a 'placeholder' switch to hold the status of whether the front door motion detection
+# is enabled or not. Could add using the 'new' helper functionality but this was set up before that.
 
-# See groups/groups.yaml for group definition for these devices.
+# Also adding a group to capture the two lights in one entity.
 
 #===================================================================================================
 # Input Boolean  
@@ -23,3 +21,9 @@ input_boolean:
 #  frontdoor_motion_timer_running:
 #    name: Front Door - Motion Timer Running?
 #    icon: mdi:timer-sand
+
+group:
+  front_house_lights:
+    name: Front House Lights
+    entities:
+      - switch.tasmo_shelly1pm_frontdoor

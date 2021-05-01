@@ -51,6 +51,7 @@ phue.conf
 plex.conf
 pyozw.sqlite
 google_service_account.json
+.google_maps*
 
 # Explicit Ignore - yamls
 ip_bans.yaml
