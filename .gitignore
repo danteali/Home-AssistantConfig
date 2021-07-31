@@ -52,8 +52,8 @@ plex.conf
 pyozw.sqlite
 google_service_account.json
 .google_maps*
-alexa_media.mcguinness_jenna_amazon@gmail.com.txt
-alexa_media.mcguinness_jenna+amazon@gmail.com.txt
+alexa_media.mcguinness_jenna_amazon@gmail.com.txt*
+alexa_media.mcguinness_jenna+amazon@gmail.com.txt*
 
 # Explicit Ignore - yamls
 ip_bans.yaml
