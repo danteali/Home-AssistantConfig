@@ -32,10 +32,12 @@ homeassistant:
   auth_providers:
     - type: trusted_networks
       trusted_networks:
-        - 192.168.0.0/24
-        - 192.168.30.0/24
-        - 172.16.2.0/24
-        - 172.16.1.0/24
+        - 192.168.0.0/24 # Home LAN subnet
+        - 192.168.30.0/24 # IOT subnet
+        - 172.16.0.0/12 # Should cover all auto-created docker subnets - 172.16.0.0-172.31.255.255
+        - 192.168.64.0/18 # Should cover any manually defined docker subnets (centered around 192.168.90.0) - 192.168.64.0 - 192.168.127.254
+        #- 172.16.2.0/24
+        #- 172.16.1.0/24
       allow_bypass_login: true
     - type: homeassistant
     - type: legacy_api_password
@@ -447,7 +449,11 @@ panel_iframe:
     title: TasmoAdmin
     icon: mdi:power-standby
     url: !secret tasmoadmin_url
-
+  zigbee2mqtt:
+    title: Zigbee2MQTT
+    icon: si:eclipsemosquito
+    #icon: mdi:access-point-network
+    url: !secret zigbee2mqtt_url
 
 
 #===================================================================================================
