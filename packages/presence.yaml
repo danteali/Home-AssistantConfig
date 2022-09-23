@@ -1,0 +1,281 @@
+####################################################################################################
+## Presence Tracking
+####################################################################################################
+#
+# Through a combination of the integrations below, the 'helper' inputs, and automation in Node red
+# we have created a relatively robust presence detection configuration.
+#
+# We will:
+#   - Set individual people's home/away status based on device_tracking
+#   - Set overall home occupied status based on individual's status
+#
+# Note that the Nest also has a sensor to track if everyone is out. I believe it works based on
+# phone wifi connectivity and phone GPS from the Nest app.
+# Nest sensor: binary_sensor.fitzallen_place_away
+#
+# We have defined the below 'helper' entities - doing in this config rather than in GUI to keep all
+# presence config in one place and not have to rely on GUI configuration of multiple entities to
+# match our requirements.
+
+# DEPENDANT ON:
+# Device location integrations:
+#   - Google Maps integration
+#   - Unifi Integration
+#   - Life360 Integration
+#   - etc
+# The respective entities should be used in Proximity and BaysianSensor integrations below.
+# And used in Node Red presence automations.
+
+#===================================================================================================
+# Input Boolean & Input Select
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/input_boolean/
+# https://www.home-assistant.io/components/input_select/
+#===================================================================================================
+#
+# Setting up input booleans and input selects to track presence. These will be set programatically 
+# by automations or node red based on the other device tracking
+#
+# Switched to using input_select fro people as it allows Home/Away instead of On/Off
+# We can have more statuses e.g. "just home", "just left", ... See phil's write up here:
+# https://philhawthorne.com/making-home-assistants-presence-detection-not-so-binary/
+#
+# Overall home_occuied = combination of ryan/jenna/bayesian but overridden by guest status
+# Ryan = combination of ryan's device trackers - maybe a bayesian sensor for ryan only
+# Jenna = combination of jenna's device trackers - maybe a bayesian sensor for jenna only
+# Guest = the only one which will be selectable in practice
+
+input_boolean:
+  home_guest:
+    name: Guests Present?
+    icon: mdi:account-group
+
+
+input_select:
+  home_occupied:
+    name: Home Occupied?
+    options:
+      - "Yes"
+      - "No"
+    #icon: mdi:
+  home_ryan:  
+    name: Ryan Home?
+    options:
+      - Home
+      - Away
+    #icon: mdi:
+  home_jenna:
+    name: Jenna Home?
+    options:
+      - Home
+      - Away
+    #icon: mdi:
+  home_james:
+    name: James Home?
+    options:
+      - Home
+      - Away
+    #icon: mdi:
+
+#===================================================================================================
+# Sensors 
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/sensor/
+#===================================================================================================
+
+# We can use template sensors to make the input_booleans above look like the a normal device tracker 
+# i.e just display the current state instead of providing the on/off button
+
+sensor:
+  - platform: template
+    sensors:
+      home_occupied_status:
+        value_template: '{{ states.input_select.home_occupied.state }}'
+        friendly_name: 'Home Occupied'
+      ryan_status:
+        value_template: '{{ states.input_select.home_ryan.state }}'
+        friendly_name: 'Ryan'
+      jenna_status:
+        value_template: '{{ states.input_select.home_jenna.state }}'
+        friendly_name: 'Jenna'
+      james_status:
+        value_template: '{{ states.input_select.home_james.state }}'
+        friendly_name: 'James'
+      guest_status:
+        value_template: '{{ states.input_boolean.home_guest.state }}'
+        friendly_name: 'Guest'
+
+
+####################################################################################################
+# Proximity Integration
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/integrations/proximity/
+#---------------------------------------------------------------------------------------------------
+# Measures proximity to specific zones
+# Creates sensors in HA with proximity data
+####################################################################################################
+
+proximity:
+  home_ryan:
+    zone: home
+    #ignored_zones:
+    #  - work
+    devices:
+      - device_tracker.life360_ryan
+    tolerance: 50
+    unit_of_measurement: m
+
+  home_jenna:
+    zone: home
+    #ignored_zones:
+    #  - work
+    devices:
+      - device_tracker.google_maps_107993763956471805595
+    tolerance: 50
+    unit_of_measurement: m
+    
+  home_james:
+    zone: home
+    #ignored_zones:
+    #  - work
+    devices:
+      - device_tracker.life360_james
+    tolerance: 50
+    unit_of_measurement: m
+
+  # Testing proximity sensing using multiple devices, andto see if maps/HA app give different results.
+  home_ryan_test:
+    zone: home
+    #ignored_zones:
+    #  - work
+    devices:
+      - device_tracker.oneplus8t    # Mobile app
+      - device_tracker.google_maps_106587669390216900176
+    tolerance: 50
+    unit_of_measurement: m
+
+
+
+#===================================================================================================
+# Bayesian Binary Sensor Integration
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/bayesian/
+# You can add almost any entity with a state to this list and play with the probabilities to try 
+# to get better answers for when the house is occupied.
+#===================================================================================================
+
+# Fancy maths to factor in all trackers etc to get a combined probability based guess of whether
+# the house is occupied.
+# Notice that the input_booleab.home_guest will overide all the others based on the defined 
+# probabilities below
+
+#  prob_given_true: 0.9   # 90% chance that if state is 'home' then person is at home
+#  prob_given_false: 0.2  # 20% chance that if state is not 'home' then person is still at home
+      
+
+binary_sensor:
+  - platform: bayesian
+    prior: 0.8   # At any point in time how likely is this event to occur?
+    name: 'Ryan Home - Bayesian'
+    probability_threshold: 0.9   # The probability at which the sensor should trigger to on.
+    observations:
+      - entity_id: 'device_tracker.life360_ryan'
+        # Ryan's life360 on phone
+        prob_given_true: 0.8
+        prob_given_false: 0.2
+        platform: 'state'
+        to_state: 'home'
+      - entity_id: 'device_tracker.oneplus8t'
+        # Ryan's phone - Home Assistant app
+        prob_given_true: 0.8
+        prob_given_false: 0.2
+        platform: 'state'
+        to_state: 'home'
+      - entity_id: 'device_tracker.oneplus_8t'
+        # Ryan's phone - Unifi GUI integration
+        prob_given_true: 0.9
+        prob_given_false: 0.1
+        platform: 'state'
+        to_state: 'home'
+      - entity_id: 'device_tracker.google_maps_106587669390216900176'
+        # Ryan's phone - Google Maps Tracking
+        prob_given_true: 0.8
+        prob_given_false: 0.2
+        platform: 'state'
+        to_state: 'home'
+
+  - platform: bayesian
+    prior: 0.7   # At any point in time how likely is this event to occur?
+    name: 'Jenna Home - Bayesian'
+    probability_threshold: 0.9   # The probability at which the sensor should trigger to on.
+    observations:
+      - entity_id: 'device_tracker.google_maps_107993763956471805595'
+        # Jenna's Phone - Google Maps Tracking
+        prob_given_true: 0.8
+        prob_given_false: 0.2
+        platform: 'state'
+        to_state: 'home'
+      - entity_id: 'device_tracker.redmi_note_11_pro_5g'
+        # Jenna's phone - Unifi GUI integration
+        prob_given_true: 0.9
+        prob_given_false: 0.1
+        platform: 'state'
+        to_state: 'home'
+
+  - platform: bayesian
+    prior: 0.8   # At any point in time how likely is this event to occur?
+    name: 'James Home - Bayesian'
+    probability_threshold: 0.9   # The probability at which the sensor should trigger to on.
+    observations:
+      - entity_id: 'device_tracker.life360_james'
+        # James's life360 on phone
+        prob_given_true: 0.8
+        prob_given_false: 0.2
+        platform: 'state'
+        to_state: 'home'
+      - entity_id: 'device_tracker.oneplus5'
+        # James's phone 
+        prob_given_true: 0.9
+        prob_given_false: 0.1
+        platform: 'state'
+        to_state: 'home'
+      
+
+  - platform: bayesian
+    prior: 0.65   # At any point in time how likely is this event to occur?
+    name: 'Home Occupied - Bayesian'
+    probability_threshold: 0.9   # The probability at which the sensor should trigger to on.
+    observations:
+      - entity_id: 'binary_sensor.ryan_home_bayesian'
+        # From baysian above
+        prob_given_true: 0.9
+        prob_given_false: 0.1
+        platform: 'state'
+        to_state: 'on'
+      - entity_id: 'binary_sensor.jenna_home_bayesian'
+        # From baysian above
+        prob_given_true: 0.9
+        prob_given_false: 0.1
+        platform: 'state'
+        to_state: 'on'
+      - entity_id: 'binary_sensor.james_home_bayesian'
+        # From baysian above
+        prob_given_true: 0.9
+        prob_given_false: 0.1
+        platform: 'state'
+        to_state: 'on'
+      - entity_id: 'input_boolean.home_guest'
+        prob_given_true: 1
+        prob_given_false: 0
+        platform: 'state'
+        to_state: 'on'
+      #- entity_id: 'binary_sensor.fitzallen_place_away'
+      #  # Nest home/away status - no longer exposed since Google-owned config setup
+      #  prob_given_true: 0.9
+      #  prob_given_false: 0.2
+      #  platform: 'state'
+      #  to_state: 'off'      
+      #- entity_id: 'binary_sensor.motion'
+      #  prob_given_true: 0.7
+      #  prob_given_false: 0.5
+      #  platform: 'state'

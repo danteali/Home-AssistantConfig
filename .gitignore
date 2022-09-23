@@ -8,6 +8,10 @@
 *.key
 *.pid
 *.xml
+*.mp3
+*.log
+*_v2.db*
+
 
 # You can whitelist files/folders with !, these will not be ignored.
 !*.disabled
@@ -36,6 +40,7 @@
 .cloud
 .google.token
 .storage
+.vscode
 deps
 lib
 tts
@@ -43,17 +48,22 @@ www
 custom_components_bak
 
 # Explicit Ignore - files
+.google*
+.ring_cache.pickle
+alexa_media.mcguinness_jenna+amazon@gmail.com.txt*
+alexa_media.mcguinness_jenna_amazon@gmail.com.txt*
+google_service_account.json
 harmony_media_room.conf
 home-assistant.log
 home-assistant_v2.db
+html5_push_registrations.conf
+life360.conf
+octopusagile.json
 OZW_Log.txt
 phue.conf
 plex.conf
 pyozw.sqlite
-google_service_account.json
-.google_maps*
-alexa_media.mcguinness_jenna_amazon@gmail.com.txt*
-alexa_media.mcguinness_jenna+amazon@gmail.com.txt*
+webostv.conf
 
 # Explicit Ignore - yamls
 ip_bans.yaml

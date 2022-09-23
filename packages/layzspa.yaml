@@ -1,0 +1,157 @@
+####################################################################################################
+## Package - Lay-Z-Spa
+####################################################################################################
+# https://github.com/visualapproach/WiFi-remote-for-Bestway-Lay-Z-SPA
+#
+# Control layzspa hot tub
+#
+# Most entities will be auto discovered via MQTT but we need to manually add two helpers in GUI:
+# (From docs in github repo)
+#	Number:
+#		Name: layzspa_target_temp (entity will be called input_number.layzspa_target_temp)
+#		Icon: mdi:thermometer
+#		Min value: 20
+#		Max value: 40
+#		Slider, step 1
+#		Unit: °C
+#	Toggle: 
+#		Name: layzspa_target_update_lock (entity will be called input_boolean.layzspa_target_update_lock)
+#		Icon: mdi:lock
+#
+# Plus additional helper to allow defining a minimum temp to allow the huttub to reach.
+# (Not from guthub repo)
+#	Number:
+#		Name: layzspa_min_temp (entity will be called input_number.layzspa_min_temp)
+#		Icon: mdi:coolant-temperature
+#		Min value: 20
+#		Max value: 40
+#		Slider, step 1
+#		Unit: °C
+#
+# And we need to add the below automations from github repo + some csutom ones added to use the
+# functionality of the minimum temp helper.
+#
+####################################################################################################
+
+
+automation:
+  - id: 'layzspa stop pump at target temp'
+    alias: 'Layzspa - Stop Pump at Target Temperature'
+    description: 'Stop pump at target temperature'
+    trigger:
+    - platform: template
+      value_template: '{{ (states("sensor.layzspa_target_temperature")|int == states("sensor.layzspa_temperature")|int)
+        }}'
+    condition:
+    - condition: state
+      entity_id: switch.layzspa_heat_regulation
+      state: 'on'
+    action:
+    - service: switch.turn_off
+      target:
+        entity_id: switch.layzspa_pump
+    mode: single
+  
+  # This automation is not from the github repo
+  - id: 'layzspa stop heater at target temp'
+    alias: 'Layzspa - Stop Heater At Target Temperature'
+    description: 'Stop heater at target temperature'
+    trigger:
+    - platform: template
+      value_template: '{{ (states("sensor.layzspa_temperature")|int == states("sensor.layzspa_target_temperature")|int)
+        }}'
+    condition: []
+    action:
+    - service: switch.turn_off
+      target:
+        entity_id: switch.layzspa_heat_regulation
+    mode: single
+
+  # This automation is not from the github repo
+  - id: 'layzspa start heater at min temp'
+    alias: 'Layzspa - Start Heater At Minimum Temperature'
+    description: 'Stop heater at minimum temperature'
+    trigger:
+    - platform: template
+      value_template: '{{ (states("sensor.layzspa_temperature")|int == states("input_number.layzspa_min_temp")|int)
+        }}'
+    condition: []
+    action:
+    - service: switch.turn_on
+      target:
+        entity_id: switch.layzspa_heat_regulation
+    mode: single
+
+#  # This automation is not from the github repo
+#  - id: 'layzspa regularly run pump'
+#    alias: 'Layzspa - Regularly Run Pump'
+#    description: 'Run pump at regular interval to keep water fresh and temp values accurate'
+
+#  # This automation is not from the github repo
+#  - id: 'layzspa update electricity unit pricing'
+#    alias: 'Layzspa - Update Electricity Unit Pricing'
+#    description: 'If electricity pricing changes, update Lay-Z-Spa cost data'
+# Can't add automation - no command available to update cost
+
+#  # This automation is not from the github repo
+#  - id: 'layzspa set air temp on esp'
+#    alias: 'Layzspa - Set Air Temp on ESP'
+#    description: 'Set air temp on ESP to enable accurate estimates for heating time'
+# Don't need this automation now since spa uses two consecutive temp readings to estimate heating time
+# instead of using air temp in calc.
+
+    
+
+  # Not sure why we would want to 'start' at target temp.
+  # Have added new helper for minimum temp and replaced this automation
+  # with a 'start at min temp' version.
+  #- id: 'layzspa start heater at target temp'
+  #  alias: 'Layzspa - Start Heater At Target Temperature'
+  #  description: 'Start heater at target temperature'
+  #  trigger:
+  #  - platform: template
+  #    value_template: '{{ (states("sensor.layzspa_target_temperature")|int - states("sensor.layzspa_temperature")|int)
+  #      > 2 }}'
+  #  condition: []
+  #  action:
+  #  - service: switch.turn_on
+  #    target:
+  #      entity_id: switch.layzspa_heat_regulation
+  #  mode: single
+  
+  - id: 'layzspa target temp get from spa'
+    alias: 'Layzspa - Target Temp Get From Spa'
+    description: 'Update target temp input slider if temp changed at spa'
+    trigger:
+    - platform: state
+      entity_id: sensor.layzspa_target_temperature
+    condition: []
+    action:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.layzspa_target_update_lock
+    - service: input_number.set_value
+      data:
+        entity_id: input_number.layzspa_target_temp
+        value: '{{states(''sensor.layzspa_target_temperature'')}}'
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.layzspa_target_update_lock
+    mode: single
+  
+  - id: 'layzspa target temp send to spa'
+    alias: 'Layzspa - Target Temp Send to Spa'
+    description: 'Send new target temp to spa if input slider changes'
+    trigger:
+    - platform: state
+      entity_id: input_number.layzspa_target_temp
+    condition:
+    - condition: state
+      entity_id: input_boolean.layzspa_target_update_lock
+      state: 'off'
+    action:
+    - service: mqtt.publish
+      data:
+        topic: layzspa/command
+        payload_template: '{CMD:0,VALUE:{{states(''input_number.layzspa_target_temp'')|int}},XTIME:0,INTERVAL:0}'
+    mode: single
+
+

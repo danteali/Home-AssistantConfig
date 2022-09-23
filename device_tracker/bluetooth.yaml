@@ -1,0 +1,11 @@
+#===================================================================================================
+# Device Tracker
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/device_tracker/
+# https://www.home-assistant.io/integrations/bluetooth_le_tracker/
+#===================================================================================================
+
+  - platform: bluetooth_tracker
+
+  - platform: bluetooth_le_tracker
+    track_battery: true
