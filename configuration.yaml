@@ -87,14 +87,14 @@ homeassistant:
       trusted_networks:
         - 192.168.0.0/24 # Home LAN subnet
         #- 192.168.64.0/18 # Should cover any manually defined docker subnets (centered around 192.168.90.0) - 192.168.64.0 - 192.168.127.254
-        #- 192.168.90.0/24 # Manually specifying docker traefik network since ha.mc-guinness.co.uk was not working for auto login even with /18 above - this MIGHT work.
+        #- 192.168.90.0/24 # Manually specifying docker traefik network since FQDN was not working for auto login even with /18 above - this MIGHT work.
         #- 192.168.30.0/24 # IOT subnet
         #- 172.16.0.0/12 # Should cover all auto-created docker subnets - 172.16.0.0-172.31.255.255
       # Since we have multiple users (Ryan & Legacy Password) we need to define trusted_users so that 
       # HA knows which user to login trusted_network under.
       trusted_users:
         192.168.0.0/24:
-          - 1a95ee6b76e041969584130d696401b5 # Get ID from Settings -> People -> Users tab
+          - !secret userid1 # Get ID from Settings -> People -> Users tab
           #- user2
       # Skips login form if only one user is available in 'trusted_users'
       allow_bypass_login: true
@@ -148,7 +148,7 @@ http:
   use_x_forwarded_for: true
   # Add traefik's IP as trusted proxy to tell HA that it's okay to accept connections from there. 
   trusted_proxies:
-    - 192.168.90.0/24 # Manually specifying docker traefik network since ha.mc-guinness.co.uk was not working for auto login even with /18 above - this MIGHT work.
+    - 192.168.90.0/24 # Manually specifying docker traefik network since FQDN was not working for auto login even with /18 above - this MIGHT work.
     #- 192.168.0.0/24 # Home LAN (unlikely to proxy from here but just in case)
     #- 192.168.64.0/18 # Should cover any manually defined docker subnets (centered around 192.168.90.0) - 192.168.64.0 - 192.168.127.254
     #- 172.16.0.0/12 # Should cover all auto-created docker subnets - 172.16.0.0-172.31.255.255
