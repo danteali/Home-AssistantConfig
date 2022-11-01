@@ -1,0 +1,35 @@
+#===================================================================================================
+# GOOGLE ASSISTANT
+#---------------------------------------------------------------------------------------------------
+# https://www.home-assistant.io/components/google_assistant/
+#===================================================================================================
+
+
+project_id: home-assistant-240311
+#api_key now depeciated in favour of json file
+#api_key: !secret googleass_api
+#api_key: !secret googleproject_api 
+service_account: !include google_service_account.json
+report_state: true
+expose_by_default: false
+entity_config:
+  light.living_room_lights:
+    expose: true
+    name: "Living Room Lights"
+    room: "Living Room"
+  light.movie_room_lights_z2m_group:
+    expose: true
+    name: "Movie Room Lights"
+    room: "Movie Room"
+  light.front_house_lights:
+    expose: true
+    name: "Front House Lights"
+    room: "Front Garden"
+  light.garden_wall_lights:
+    expose: true
+    name: "Garden Wall Lights"
+    room: "Back Garden"
+  input_boolean.nr_study_lights:
+    expose: true
+    name: "Study Lights"
+    room: "Study"

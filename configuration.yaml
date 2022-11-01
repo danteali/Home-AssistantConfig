@@ -42,6 +42,14 @@
 default_config:
 
 #===================================================================================================
+# FRONEND
+# https://www.home-assistant.io/integrations/frontend
+# Any changes to default frontend config
+#---------------------------------------------------------------------------------------------------
+frontend:
+  themes: !include_dir_merge_named themes
+
+#===================================================================================================
 # TEXT-TO-SPEECH (TTS)
 #---------------------------------------------------------------------------------------------------
 # https://www.home-assistant.io/components/tts/
@@ -49,7 +57,10 @@ default_config:
 #===================================================================================================
 tts:
   - platform: google_translate
+    service_name: google_say
 
+
+#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>    
 # Above this line is the default config file contents.
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -69,8 +80,6 @@ homeassistant:
   # Configure authentication providers (note that 2FA can be enabled in GUI)
   # https://www.home-assistant.io/docs/authentication/providers/
   auth_providers:
-    # Default auth provider i.e. the login form
-    - type: homeassistant
     # Defines a range of IP addresses for which no authentication will be required
     - type: trusted_networks
       # Any IP/ranges that we want to allow auto login from. Also need to set a 'trusted_user' for each enabled IP/range
@@ -89,6 +98,8 @@ homeassistant:
           #- user2
       # Skips login form if only one user is available in 'trusted_users'
       allow_bypass_login: true
+    # Default auth provider i.e. the login form
+    - type: homeassistant
     # Allow authentication with an API password set in the HTTP component (will be depreciated in future)
     - type: legacy_api_password
       api_password: !secret http_password
@@ -277,7 +288,7 @@ panel_iframe:
 #---------------------------------------------------------------------------------------------------
 
 prometheus:
-  namespace: ha_test
+  namespace: ha
   filter:
     exclude_domains:
       - calendar
@@ -404,6 +415,15 @@ prometheus:
 #    - plex
 
 
+#===================================================================================================
+# GOOGLE ASSISTANT
+#---------------------------------------------------------------------------------------------------
+# Enable device discovery with Google Assistant
+#
+# https://www.home-assistant.io/components/google_assistant/
+#===================================================================================================
+
+google_assistant: !include google_assistant.yaml
 
 
 

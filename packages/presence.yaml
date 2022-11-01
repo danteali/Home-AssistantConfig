@@ -83,6 +83,9 @@ input_select:
 # https://www.home-assistant.io/components/sensor/
 #===================================================================================================
 
+# Found that we weren't using these sensors for anything - the input_selects will give the same
+# values.
+
 # We can use template sensors to make the input_booleans above look like the a normal device tracker 
 # i.e just display the current state instead of providing the on/off button
 
@@ -91,6 +94,7 @@ input_select:
 #    sensors:
 #      home_occupied_status:
 #        value_template: '{{ states.input_select.home_occupied.state }}'
+#        value_template: ''
 #        friendly_name: 'Home Occupied'
 #      ryan_status:
 #        value_template: '{{ states.input_select.home_ryan.state }}'
@@ -104,6 +108,8 @@ input_select:
 #      guest_status:
 #        value_template: '{{ states.input_boolean.home_guest.state }}'
 #        friendly_name: 'Guest'
+
+
 
 
 ####################################################################################################
@@ -121,7 +127,7 @@ proximity:
     #ignored_zones:
     #  - work
     devices:
-      - device_tracker.life360_ryan
+      - device_tracker.google_maps_106587669390216900176
     tolerance: 50
     unit_of_measurement: m
 
@@ -143,17 +149,24 @@ proximity:
     tolerance: 50
     unit_of_measurement: m
 
-  # Testing proximity sensing using multiple devices, andto see if maps/HA app give different results.
+  # Testing proximity sensing using other sources
   home_ryan_test:
     zone: home
     #ignored_zones:
     #  - work
     devices:
-      - device_tracker.oneplus8t    # Mobile app
-      - device_tracker.google_maps_106587669390216900176
+      - device_tracker.life360_ryan
     tolerance: 50
     unit_of_measurement: m
 
+  home_ryan_test_app:
+    zone: home
+    #ignored_zones:
+    #  - work
+    devices:
+      - device_tracker.oneplus8t    # Mobile app
+    tolerance: 50
+    unit_of_measurement: m
 
 
 #===================================================================================================
@@ -181,14 +194,14 @@ binary_sensor:
     observations:
       - entity_id: 'device_tracker.life360_ryan'
         # Ryan's life360 on phone
-        prob_given_true: 0.8
-        prob_given_false: 0.2
+        prob_given_true: 0.7
+        prob_given_false: 0.3
         platform: 'state'
         to_state: 'home'
       - entity_id: 'device_tracker.oneplus8t'
         # Ryan's phone - Home Assistant app
-        prob_given_true: 0.8
-        prob_given_false: 0.2
+        prob_given_true: 0.7
+        prob_given_false: 0.3
         platform: 'state'
         to_state: 'home'
       - entity_id: 'device_tracker.oneplus_8t'
@@ -199,8 +212,8 @@ binary_sensor:
         to_state: 'home'
       - entity_id: 'device_tracker.google_maps_106587669390216900176'
         # Ryan's phone - Google Maps Tracking
-        prob_given_true: 0.8
-        prob_given_false: 0.2
+        prob_given_true: 0.7
+        prob_given_false: 0.3
         platform: 'state'
         to_state: 'home'
 
@@ -211,8 +224,8 @@ binary_sensor:
     observations:
       - entity_id: 'device_tracker.google_maps_107993763956471805595'
         # Jenna's Phone - Google Maps Tracking
-        prob_given_true: 0.8
-        prob_given_false: 0.2
+        prob_given_true: 0.7
+        prob_given_false: 0.3
         platform: 'state'
         to_state: 'home'
       - entity_id: 'device_tracker.redmi_note_11_pro_5g'
@@ -229,8 +242,8 @@ binary_sensor:
     observations:
       - entity_id: 'device_tracker.life360_james'
         # James's life360 on phone
-        prob_given_true: 0.8
-        prob_given_false: 0.2
+        prob_given_true: 0.7
+        prob_given_false: 0.3
         platform: 'state'
         to_state: 'home'
       - entity_id: 'device_tracker.oneplus5'
@@ -279,3 +292,4 @@ binary_sensor:
       #  prob_given_true: 0.7
       #  prob_given_false: 0.5
       #  platform: 'state'
+
