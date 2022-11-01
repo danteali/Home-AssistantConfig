@@ -86,24 +86,24 @@ input_select:
 # We can use template sensors to make the input_booleans above look like the a normal device tracker 
 # i.e just display the current state instead of providing the on/off button
 
-sensor:
-  - platform: template
-    sensors:
-      home_occupied_status:
-        value_template: '{{ states.input_select.home_occupied.state }}'
-        friendly_name: 'Home Occupied'
-      ryan_status:
-        value_template: '{{ states.input_select.home_ryan.state }}'
-        friendly_name: 'Ryan'
-      jenna_status:
-        value_template: '{{ states.input_select.home_jenna.state }}'
-        friendly_name: 'Jenna'
-      james_status:
-        value_template: '{{ states.input_select.home_james.state }}'
-        friendly_name: 'James'
-      guest_status:
-        value_template: '{{ states.input_boolean.home_guest.state }}'
-        friendly_name: 'Guest'
+#sensor:
+#  - platform: template
+#    sensors:
+#      home_occupied_status:
+#        value_template: '{{ states.input_select.home_occupied.state }}'
+#        friendly_name: 'Home Occupied'
+#      ryan_status:
+#        value_template: '{{ states.input_select.home_ryan.state }}'
+#        friendly_name: 'Ryan'
+#      jenna_status:
+#        value_template: '{{ states.input_select.home_jenna.state }}'
+#        friendly_name: 'Jenna'
+#      james_status:
+#        value_template: '{{ states.input_select.home_james.state }}'
+#        friendly_name: 'James'
+#      guest_status:
+#        value_template: '{{ states.input_boolean.home_guest.state }}'
+#        friendly_name: 'Guest'
 
 
 ####################################################################################################
